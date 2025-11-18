@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Espaço Gourmet - Perfil</title>
+        <link rel="stylesheet" href="./css/global.css">
+        <link rel="stylesheet" href="./css/style.css">
+    </head>
+    <body>
+        <header>
+            <div class="header-container">
+                <img id="btn-back-page" src="./img/back-arrow.png">
+                <div class="header-titulo">
+                    ESPAÇO GOURMET
+                </div>
+            </div>
+        </header>
+
+        <div class="container">
+            <aside>
+                <div class="menu">
+                    <button id="perfil-btn" class="active">PERFIL</button>
+                    <button id="senha-btn">SENHA</button>
+                </div>
+                <button class="btn-vermelho">DELETAR CONTA</button>
+            </aside>
+            <main>
+                <section class="menu-section active" id="section-perfil">
+                    <form class="card">
+                        <h1>Dados do Perfil</h1>
+                        <p>Informações para identificação.</p>
+                        <section>
+                            <label for="nome">Nome:</label>
+                            <input id="nome" placeholder="Nome De Exemplo">
+                        </section>
+                        <section>
+                            <label for="email">Email:</label>
+                            <input id="email" placeholder="exemplo@gmail.com">
+                        </section>
+
+                        <section>
+                            <label for="telefone">Telefone:</label>
+                            <input id="telefone" placeholder="(XX) XXXXX-XXXX">
+                        </section>
+                        <button class="btn-confirm" type="submit">ATUALIZAR
+                            PERFIL</button>
+                    </form>
+                </section>
+                <section class="menu-section" id="section-senha">
+                    <form class="card">
+                        <h1>Redefinir Senha</h1>
+                        <p>Campos para redefinir a senha atual.</p>
+                        <section>
+                            <label for="senha-original">Senha original:</label>
+                            <input id="senha-original" type="password"
+                                placeholder="**********">
+                        </section>
+                        <section>
+                            <label for="nova-senha">Nova senha:</label>
+                            <input id="senha-nova" type="password"
+                                placeholder="**********">
+                        </section>
+
+                        <section>
+                            <label for="confirmar-senha">Confirmar nova
+                                senha:</label>
+                            <input id="confirmar-senha"
+                                type="password"
+                                placeholder="**********">
+                        </section>
+                        <button class="btn-confirm" type="submit">REDEFINIR
+                            SENHA</button>
+                    </form>
+                </section>
+            </main>
+        </div>
+        <script type="module" src="../../js/pages/perfil.js"></script>
+    </body>
+</html>

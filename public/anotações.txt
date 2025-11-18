@@ -1,0 +1,29 @@
+============= (14-11-2025) =============
+
+Falta adicionar JS em backend para:
+    - Login e Cadastro.
+    - Página de perfil.
+
+Falta adicionar as páginas:
+    - Sobre:
+        - Ideia de fazer no menu lateral mesmo.
+    - Meus pedidos:
+        - Será linkado com o "ADICIONAR" dos produtos.
+
+Falta adicionar na HomePage:
+    - Mais conteúdo ao footer.
+    - Estilização mais profissional nos produtos.
+
+============= (15-11-2025) =============
+
+Objetivo alvo: Modal de SOBRE do site.
+Ainda incompleto.
+
+============= (16-11-2025) =============
+
+O modal SOBRE praticamente completo.
+PROBLEMA: o site está pegando mais de 220 MB
+de RAM. Falta otimização.
+Foi encontrado erros de chamada de função no
+módulo aside-menu.js. Melhorar a chamada do
+módulo sobre.js.

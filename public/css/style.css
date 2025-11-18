@@ -1,0 +1,654 @@
+@import url('https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Julius+Sans+One&family=K2D:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Julius+Sans+One&family=K2D:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Puritan:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+:root {
+    --site-main-color: #61141A;
+    --bg-site-main-color: #f9efef;
+    --on-stock-color: #00aa00;
+    --off-stock-color: #b00000;
+    --disable-funcion-color: #a0a0a0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Julius Sans One", sans-serif;
+}
+
+body::-webkit-scrollbar {
+    width: 4px;
+    background: transparent;
+}
+
+body::-webkit-scrollbar-track {
+    background: #eee;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #380b0f;
+    border: 2px solid transparent;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+}
+
+footer {
+    background-color: var(--site-main-color);
+    padding: 2rem 0;
+}
+
+.footer-content {
+    color: white;
+    font-family: "K2D";
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.footer-content div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-titulo {
+    display: flex;
+    flex: 1;
+}
+
+.overlay-menu {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+}
+
+.overlay-menu.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Aside modal */
+.menu-aside {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    background-color: #201E1F;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 11;
+    padding: 1rem 0;
+    display: inline-flex;
+    border-end-end-radius: 15px;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.menu-aside.active {
+    transform: translateX(0);
+}
+
+.btn-open-menu {
+    position: fixed;
+    cursor: pointer;
+    transition: opacity ease-in-out 0.1s;
+    /* mix-blend-mode: difference; */
+    filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.6));
+}
+
+.btn-open-menu:hover {
+    opacity: 0.8;
+}
+
+.btn-open-menu:active {
+    opacity: 0.5;
+}
+
+.sobre-modal {
+    opacity: 0;
+    display: flex;
+    background-color: white;
+    height: 95%;
+    width: 35%;
+    box-shadow: 0 0 10px black;
+    border-radius: 10px;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 0;
+    align-items: center;
+    justify-self: center;
+    transition: z-index ease-in-out 0.2s, opacity ease-in-out 0.1s;
+    pointer-events: none;
+}
+
+.sobre-modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.sobre-container {
+    height: 100%;
+    width: 100%;
+    padding-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    overflow: hidden;
+    overflow-y: visible;
+    overflow-x: hidden;
+    text-align: center;
+    gap: 1rem;
+}
+
+.sobre-cantina-view {
+    object-fit: cover;
+    width: 100%;
+    height: 50%;
+    border-radius: 10px 10px 0 0;
+}
+
+.sobre-container hr {
+    height: 3px;
+    width: 100%;
+}
+
+.sobre-description {
+    font-family: "Puritan";
+    width: 90%;
+}
+
+.sobre-location {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "K2D";
+    margin: 0 1rem;
+    gap: 0.1rem;
+}
+
+.sobre-location iframe {
+    border: none;
+    border-radius: 10px;
+    width: 80%;
+}
+
+.sobre-location h2 {
+    text-align: start;
+    margin-bottom: 0.3rem;
+}
+
+.sobre-contact-container {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    gap: 1rem;
+    padding: 0 1rem;
+}
+
+.sobre-contact-container img {
+    width: 2rem;
+    height: 2rem;
+}
+
+.sobre-contact-container p {
+    font-family: "K2D";
+    font-size: 1.2rem;
+}
+
+.sobre-formas-pagamento {
+    font-family: "K2D";
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    gap: 1rem;
+    text-align: center;
+}
+
+.sobre-formas-pagamento div {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 0.5rem;
+}
+
+.sobre-formas-pagamento div p {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #a0a0a0;
+    border-radius: 5px;
+    cursor: default;
+    transition: 
+        background-color ease-in-out 0.2s, 
+        color ease-in-out 0.2s,
+        border-color ease-in-out 0.2s;
+}
+
+.sobre-formas-pagamento div p img {
+    object-fit: contain;
+    width: 1.2rem;
+    height: auto;
+    filter: invert(0);
+    transition: filter ease-in-out 0.2s;
+}
+
+.sobre-formas-pagamento div p img.active {
+    filter: invert(1);
+}
+
+.sobre-formas-pagamento div p:hover {
+    color: white;
+    background-color: #201E1F;
+    border-color: #111011;
+}
+
+.btn-fechar-sobre {
+    font-size: 1.2rem;
+    width: 10rem;
+    height: 2rem;
+}
+
+.ver-mais-menu {
+    opacity: 0;
+    display: flex;
+    background-color: white;
+    height: 85%;
+    width: 30%;
+    box-shadow: 0 0 10px black;
+    border-radius: 10px;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    z-index: 0;
+    justify-self: center;
+    transition: z-index ease-in-out 0.2s, opacity ease-in-out 0.2s;
+    pointer-events: none;
+}
+
+.ver-mais-menu.active {
+    opacity: 1;
+}
+
+.ver-mais-container {
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    align-items: center;
+    padding-top: 2rem;
+    transition: z-index ease-in-out 0.2s, opacity ease-in-out 0.1s;
+    padding-bottom: 3rem;
+}
+
+.ver-mais-menu.active .ver-mais-container {
+    opacity: 1;
+}
+
+.ver-mais-head {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    text-align: center;
+    background-color: var(--off-stock-color);
+    border-radius: 15px;
+}
+
+.ver-mais-head.active {
+    background-color: var(--on-stock-color);
+}
+
+.ver-mais-head p {
+    font-family: "K2D";
+    color: white;
+    font-size: 1.2rem;
+    margin: 0.1rem 0;
+}
+
+.ver-mais-head.active p {
+    color: black;
+}
+
+.ver-mais-top-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    width: 70%;
+    margin: 1rem 0;
+}
+
+.hr-product-name-description {
+    background: linear-gradient(180deg, white, black, white);
+    border: none;
+    border-radius: 50%;
+    height: 5px;
+    width: 100%;
+}
+
+.ver-mais-body-tail {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.ver-mais-body {
+    font-family: "K2D";
+    line-height: 1rem;
+    width: 80%;
+    height: 10rem;
+    text-align: center;
+    overflow-y: auto;
+    margin-bottom: 2rem;
+}
+
+.ver-mais-tail {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 70%;
+    flex: 1;
+    height: auto;
+    align-items: self-end;
+}
+
+.ver-mais-tail p {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+#product-name {
+    font-size: 1.5rem;
+    text-align: center;
+    width: 100%;
+    font-weight: 900;
+}
+
+#product-icon {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+}
+
+.btn-add-product {
+    padding-bottom: 0.1rem;
+    text-align: center;
+    font-family: "K2D";
+    font-weight: 600;
+    cursor: not-allowed;
+    background-color: var(--disable-funcion-color);
+    font-size: 1rem;
+    height: 2rem;
+    width: 8rem;
+    border: 2px solid color-mix(in srgb, var(--disable-funcion-color) 100%, black 20%);
+    border-radius: 10px;
+}
+
+.btn-add-product:hover {
+    background-color: color-mix(in srgb, var(--disable-funcion-color) 100%, white 20%);
+    border-color: color-mix(in srgb, var(--disable-funcion-color) 100%, white 5%);
+}
+
+.btn-add-product:active {
+    pointer-events: none;
+}
+
+.btn-add-product.active {
+    color: white;
+    font-weight: 500;
+    cursor: initial;
+    background-color: var(--on-stock-color);
+    border-color: color-mix(in srgb, var(--on-stock-color) 100%, black 20%);
+}
+
+.btn-add-product.active:hover {
+    background-color: color-mix(in srgb, var(--on-stock-color) 100%, white 20%);
+    border-color: color-mix(in srgb, var(--on-stock-color) 100%, black 5%);
+}
+
+.btn-add-product.active:active {
+    pointer-events: initial;
+}
+
+.opt-aside {
+    margin-left: 2rem;
+    font-size: larger;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    gap: 2rem;
+}
+
+.opt-menu {
+    height: 3rem;
+    width: 90%;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    border: 2px solid white;
+    font-family: "K2D";
+    display: flex;
+    justify-content: start;
+    cursor: pointer;
+    gap: 1rem;
+}
+
+.opt-menu img {
+    margin-left: 0.5rem;
+    height: 90% !important;
+    width: auto !important;
+}
+
+.opt-menu div {
+    margin-top: 0.4rem;
+}
+
+.ver-mais-menu img {
+    height: 200px;
+    width: auto;
+    border-radius: 15px;
+}
+
+.ver-mais-menu.active {
+    pointer-events: all;
+    z-index: 12;
+    opacity: 1;
+}
+
+.ver-mais-menu.active button {
+    width: 50%;
+}
+
+.btn-ver-mais {
+    cursor: pointer;
+    /*as*/
+}
+
+.btn-close-menu {
+    background: crimson;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.titulo-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.titulo-section h1 {
+    display: flex;
+    justify-content: left;
+    margin-left: 13rem;
+    margin-top: 3rem;
+}
+
+.titulo-section hr {
+    border: 1;
+    /* remove o estilo padrão */
+    height: 0.3rem;
+    /* espessura da linha */
+    background-color: #201E1F;
+    /* cor visível */
+    width: 80%;
+    align-self: center;
+}
+
+.container-login-cadastro {
+    display: flex;
+    justify-content: center;
+    height: 70px;
+    letter-spacing: 3px;
+    padding: 5px;
+    gap: 1rem;
+}
+
+.container-login-cadastro div {
+    cursor: pointer;
+}
+
+.produtos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    padding: 50px 0;
+}
+
+.menu img {
+    width: 5rem;
+    height: 4rem;
+}
+
+.linha {
+    display: flex;
+    justify-content: space-between;
+    /* Distribuir os cards igualmente */
+    width: 80%;
+    /* Largura da tabela 80% */
+    gap: 10px;
+}
+
+.card {
+    position: relative;
+    width: 100%;
+    /* Faz com que os cards ocupem 100% do espaço disponível */
+    max-width: 250px;
+    /* Largura máxima para os cards */
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    transition: transform ease-in-out 0.3s, box-shadow ease-in-out 0.1s;
+}
+
+.card:hover {
+    transform: scale(1.01);
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.card img {
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+}
+
+.card-title {
+    display: flex;
+    background-color: white;
+    color: black;
+    padding: 10px;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-ver-mais {
+    width: 100%;
+    padding: 10px;
+    background-color: #444;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 0 0 10px 10px;
+}
+
+.verde {
+    background-color: #00aa00;
+}
+
+.vermelho {
+    background-color: #b00000;
+}
+
+.icone {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    background-color: white;
+    border-radius: 50%;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform ease-in-out 0.2s;
+}
+
+.verde .icone:hover {
+    transform: scale(1.5);
+    cursor: pointer;
+}
+
+.verde .icone {
+    background-color: #38ec01;
+    color: black;
+    width: 30px;
+    height: 30px;
+    font-weight: 1000;
+}
+
+.vermelho .icone {
+    /* background-color: red; */
+    color: white;
+    width: 50px;
+    height: 50px;
+    font-size: 40px;
+    background-color: #b00000;
+    transition: transform ease-in-out 0.2s;
+}
+
+.vermelho .icone:hover {
+    transform: scale(1.2);
+}
+
+.btn-vermelho {
+    display: flex;
+    font-size: 20px;
+    padding: -10px;
+    align-items: center;
+    letter-spacing: 2px;
+    padding: 0 25px;
+    border-radius: 20px;
+}

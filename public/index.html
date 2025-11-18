@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Gourmet - Página Principal</title>
+        <link rel="shortcut icon" href="img/restaunte-gourmet.ico"
+            type="image/x-icon">
+        <link rel="stylesheet" href="./css/global.css">
+        <link rel="stylesheet" href="./css/style.css">
+    </head>
+
+    <body>
+        <div class="overlay-menu" id="overlay-menu"></div>
+        <header>
+            <div class="menu">
+                <img class="btn-open-menu" src="./img/menu-icon.webp">
+                <aside id="menu-aside" class="menu-aside">
+                    <!-- Cadápio, Meus pedidos, Perfil, Sobre -->
+                    <div class="opt-aside">
+                        <button id="btn-cardapio"
+                            class="opt-menu"><img
+                                src="./img/cardapio-menu.webp"><div>Cardápio</div></button>
+                        <button id="btn-meus-pedidos" class="opt-menu"><img
+                                src="./img/meus-pedidos-icon.webp"><div>Meus
+                                pedidos</div></button>
+                        <button id="btn-perfil" class="opt-menu"><img
+                                src="./img/perfil-icon.webp"><div>Perfil</div></button>
+                        <button id="btn-sobre" class="opt-menu"><img
+                                src="./img/sobre-icon.webp"><div>Sobre</div></button>
+                    </div>
+                </aside>
+            </div>
+            <div class="header-titulo">ESPAÇO GOURMET</div>
+            <div class="container-login-cadastro">
+                <div id="btn-login" class="btn-vermelho">Login</div>
+                <div id="btn-cadastro" class="btn-vermelho">Cadastrar</div>
+            </div>
+        </header>
+        <main>
+            <div class="sobre-modal">
+                <div class="sobre-container">
+                    <img class="sobre-cantina-view"
+                        src="./img/cantina-view.jpeg">
+                    <p class="sobre-description">
+                        Somos uma cantina terceirizada do Espaço Gourmet no
+                        SENAI Registro, oferecendo salgados, doces, petiscos,
+                        refeições prontas, lanches e bebidas. O ambiente é limpo
+                        e confortável, com geladeira e micro-ondas disponíveis
+                        para uso.
+                    </p>
+                    <hr>
+                    <!-- <div class="sobre-coleta-info-box">
+                        <p>COLETA E PAGAMENTO FEITOS PRESENCIALMENTE</p>
+                    </div> -->
+                    <div class="sobre-location">
+                        <h2>Localização</h2>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d741.3139457692806!2d-47.87174602553694!3d-24.532819163441925!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c533cf3b031be9%3A0x67ebf50af7adf1e7!2sEscola%20SENAI%20de%20Registro%20%2F%20SP!5e0!3m2!1spt-BR!2sbr!4v1763336087806!5m2!1spt-BR!2sbr"
+                            allowfullscreen loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                        <p>
+                            Av. Saburo Kameyama, 1005 - Agrochá, Registro - SP,
+                            11900-000
+                        </p>
+                    </div>
+                    <hr>
+                    <div class="sobre-contact-container">
+                        <img src="./img/tel-icon.webp">
+                        <p>(13) 99748-3828</p>
+                    </div>
+                    <hr>
+                    <div class="sobre-formas-pagamento">
+                        <h2>Forma e pagamento</h2>
+                        <div>
+                            <p><img src="./img/credit-debt-card.webp">Cartão de crédito</p>
+                            <p><img src="./img/dolar-icon.webp">Dinheiro</p>
+                        </div>
+                        <div>
+                            <p><img src="./img/pix.webp">Pix</p>
+                            <p><img src="./img/credit-debt-card.webp">Cartão de débito</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="ver-mais-menu" class="ver-mais-menu">
+                <!-- Menu suspenso de produto -->
+
+                <div class="ver-mais-container">
+                    <div class="ver-mais-head">
+                        <p id="product-stock">...</p>
+                        <img id="product-icon"
+                            src="./img/enroladinho-de-salsicha.jpg">
+                    </div>
+                    <div class="ver-mais-top-body">
+                        <p id="product-name">Esperando nome...</p>
+                        <hr class="hr-product-name-description">
+                    </div>
+                    <div class="ver-mais-body">
+                        <p id="product-description">Esperando
+                            descrição...</p>
+                    </div>
+                    <div class="ver-mais-tail">
+                        <p>
+                            R$<span id="product-price">00,00</span>
+                        </p>
+                        <button id="btn-add-product"
+                            class="btn-add-product">ADICIONAR</button>
+                    </div>
+                </div>
+            </div>
+            <section id="cardapio">
+                <!-- Aqui será renderizado automaticamente pelo JS -->
+                <!-- Veja o arquivo /js/cardapio.js para ver o funcionamento -->
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="contact-infos">
+                    <h4>Contato</h4>
+                    <p>Telefone - (13) 99748-3828</p>
+                    <p>Email - senai.gourmet@gmail.com</p>
+                </div>
+                <p>© 2025 Senai Gourmet. Todos os direitos reservados.</p>
+            </div>
+        </footer>
+        <script type="module" src="./js/aside-menu.js"></script>
+        <script type="module" src="./js/cardapio.js"></script>
+        <script type="module" src="./js/ver-mais-menu.js"></script>
+        <script type="module">
+        import { toPage } from "./js/utils.js"
+        const btnLogin = document.querySelector("#btn-login");
+        const btnCadastro = document.querySelector("#btn-cadastro");
+        const pagamentoBoxs = document.querySelectorAll(".sobre-formas-pagamento div p");
+
+        pagamentoBoxs.forEach((e) => {
+            e.addEventListener("mouseenter", (e) => { 
+                e.target.querySelectorAll("p img").forEach((icon) => {
+                    icon.classList.add("active");
+                });
+            });
+            e.addEventListener("mouseleave", (e) => {
+                e.target.querySelectorAll("p img").forEach((icon) => {
+                    icon.classList.remove("active");
+                });
+            });
+        })
+
+        btnLogin.addEventListener("click", () => {
+            toPage(".", "pages", "login", "login.html");
+        });
+        btnCadastro.addEventListener("click", () => {
+            toPage(".", "pages", "cadastro", "cadastro.html");
+        });
+
+        // Não deixa pegar as imagens
+        document.querySelectorAll("img").forEach((img) => {
+                img.addEventListener("contextmenu", e => e.preventDefault());
+                img.addEventListener("dragstart", function (e) {
+                e.preventDefault();
+            });
+        });
+    </script>
+    </body>
+
+</html>
