@@ -5,7 +5,9 @@ import {
     formatPrice,
     formatStock,
     setElementValueTemporarily,
-    removeAccentuation
+    removeAccentuation,
+    serverLessFunction,
+    createRequestOptions
 } from "./utils.js";
 
 import {
@@ -422,9 +424,4 @@ cardapio.addItem(
     5
 );
 
-// cardapio.showItem("kibe");
-
-// cardapio.removeItemFromCategory("salgados", )
-
-// cardapio.showCategories();
 cardapio.renderCardapio();

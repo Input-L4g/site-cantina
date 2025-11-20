@@ -1,5 +1,7 @@
 import {
-    toPage
+    toPage,
+    getLocalStorage,
+    setLocalStorage
 } from "../utils.js"
 
 const formLogin = document.getElementById("form-login");
