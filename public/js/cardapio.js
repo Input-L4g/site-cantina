@@ -98,8 +98,7 @@ class Cardapio {
         return div;
     }
 
-    renderCardapio() {
-        // Fazer método para renderizar todo o cardápio no index.html
+    renderCardapio(clearOldCardapio = true) {
         this.cardapioSection.innerHTML = "";
         const modalCloseBtn = modal.querySelector("#btn-add-product");
         const modalHead = document.querySelector(".ver-mais-head");
