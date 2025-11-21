@@ -1,0 +1,53 @@
+============= (14-11-2025) =============
+
+Falta adicionar JS em backend para:
+    - Login e Cadastro.
+    - Página de perfil.
+
+Falta adicionar as páginas:
+    - Sobre:
+        - Ideia de fazer no menu lateral mesmo.
+    - Meus pedidos:
+        - Será linkado com o "ADICIONAR" dos produtos.
+
+Falta adicionar na HomePage:
+    - Mais conteúdo ao footer.
+    - Estilização mais profissional nos produtos.
+
+============= (15-11-2025) =============
+
+Objetivo alvo: Modal de SOBRE do site.
+Ainda incompleto.
+
+============= (16-11-2025) ============
+
+O modal SOBRE praticamente completo.
+PROBLEMA: o site está pegando mais de 220 MB
+de RAM. Falta otimização.
+Foi encontrado erros de chamada de função no
+módulo aside-menu.js. Melhorar a chamada do
+módulo sobre.js.
+
+============= (18-11-2025) =============
+
+Foi introduzido e terminado a primeira versão do CRUD
+de usuários, sem testes realizados ainda.
+
+============= (19-11-2025) =============
+
+Foi feito uma mudança na paleta de cores do site e
+aplicação de animações, mas, no fim, precisa arrumar
+o redirecionamento de página com window.location.href,
+pois não está sendo considerado o novo ambiente (novo esquema de pasta).
+
+Ainda falta testar o CRUD e aplicar
+a segurança nos emails de DEV.
+
+============= (20-11-2025) =============
+
+Foi otimizado diversas funções e criadas novas utilitárias.
+Foi implementado novas funções e a mecânica de execução
+de funções serverless do Netlify, além de descartar o uso de
+localStorage como DB, será usado no lugar o Blobs do netlify.
+
+A adaptação do script crud_user.js para o uso de Blobs.
