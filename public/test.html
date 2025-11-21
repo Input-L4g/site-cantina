@@ -6,14 +6,16 @@
         <title>Document</title>
     </head>
     <body>
-        <!-- <script
-            src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script> -->
-        <input type="file" id="fileInput">
-        <button id="btnUpload">Enviar</button>
-        <p id="status"></p>
-
         <script type="module">
-            
+            import {
+                generateId
+            } from "../src/utils/user_crud.js";
+
+            const email = "";
+            const phoneNumber = 13997483828;
+            const result = generateId(email, phoneNumber);
+            console.log(result);
+            console.log(result.length === (email.length + String(phoneNumber).length));
         </script>
     </body>
 </html>

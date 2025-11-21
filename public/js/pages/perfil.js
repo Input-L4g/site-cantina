@@ -6,7 +6,16 @@ import {
     homePageFileName
 } from "../global.js"
 
-const homePagePath = createRootPath(2, homePageFileName);
+const rawUserData = {
+    name: document.querySelector("#nome").value,
+    email: document.querySelector("#email").value,
+    phoneNumber: document.querySelector("#telefone").value,
+    oldPassword: document.querySelector("#senha-original").value,
+    newPassword: document.querySelector("#nova-senha").value,
+    confirmNewPassword: document.querySelector("#confirmar-senha").value
+};
+
+const homePagePath = createRootPath(homePageFileName);
 const activeButtonClassName = "active";
 const btnBackPage = document.getElementById("btn-back-page");
 const menuForms = document.querySelectorAll(".card");
@@ -46,6 +55,7 @@ function getCurrentSection() {
         }
     }
 }
+
 function toggleMenuButtons() {
     const activeButton = getCurrentActiveButton();
     const other = getDesactiveButton();

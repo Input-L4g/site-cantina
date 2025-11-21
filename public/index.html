@@ -34,8 +34,9 @@
             </div>
             <div class="header-titulo">ESPAÇO GOURMET</div>
             <div class="container-login-cadastro">
-                <div id="btn-login" class="btn-vermelho">Login</div>
-                <div id="btn-cadastro" class="btn-vermelho">Cadastrar</div>
+                <div id="btn-login" class="btn-login">Login</div>
+                <div id="btn-cadastro" class="btn-login">Cadastrar</div>
+                <div id="btn-logout" class="btn-logout">Log Out</div>
             </div>
         </header>
         <main>
@@ -75,12 +76,14 @@
                     <div class="sobre-formas-pagamento">
                         <h2>Forma e pagamento</h2>
                         <div>
-                            <p><img src="./img/credit-debt-card.webp">Cartão de crédito</p>
+                            <p><img src="./img/credit-debt-card.webp">Cartão de
+                                crédito</p>
                             <p><img src="./img/dolar-icon.webp">Dinheiro</p>
                         </div>
                         <div>
                             <p><img src="./img/pix.webp">Pix</p>
-                            <p><img src="./img/credit-debt-card.webp">Cartão de débito</p>
+                            <p><img src="./img/credit-debt-card.webp">Cartão de
+                                débito</p>
                         </div>
                     </div>
                 </div>
@@ -131,39 +134,40 @@
         <script type="module" src="./js/cardapio.js"></script>
         <script type="module" src="./js/ver-mais-menu.js"></script>
         <script type="module">
-        import { toPage } from "./js/utils.js"
-        const btnLogin = document.querySelector("#btn-login");
-        const btnCadastro = document.querySelector("#btn-cadastro");
-        const pagamentoBoxs = document.querySelectorAll(".sobre-formas-pagamento div p");
+            import { toPage } from "./js/utils.js";
 
-        pagamentoBoxs.forEach((e) => {
-            e.addEventListener("mouseenter", (e) => { 
-                e.target.querySelectorAll("p img").forEach((icon) => {
-                    icon.classList.add("active");
+            const btnLogin = document.querySelector("#btn-login");
+            const btnCadastro = document.querySelector("#btn-cadastro");
+            const pagamentoBoxs = document.querySelectorAll(".sobre-formas-pagamento div p");
+
+            pagamentoBoxs.forEach((e) => {
+                e.addEventListener("mouseenter", (e) => { 
+                    e.target.querySelectorAll("p img").forEach((icon) => {
+                        icon.classList.add("active");
+                    });
+                });
+                e.addEventListener("mouseleave", (e) => {
+                    e.target.querySelectorAll("p img").forEach((icon) => {
+                        icon.classList.remove("active");
+                    });
+                });
+            })
+
+            btnLogin.addEventListener("click", () => {
+                toPage(".", "pages", "login", "login.html");
+            });
+            btnCadastro.addEventListener("click", () => {
+                toPage(".", "pages", "cadastro", "cadastro.html");
+            });
+
+            // Não deixa pegar as imagens
+            document.querySelectorAll("img").forEach((img) => {
+                    img.addEventListener("contextmenu", e => e.preventDefault());
+                    img.addEventListener("dragstart", function (e) {
+                    e.preventDefault();
                 });
             });
-            e.addEventListener("mouseleave", (e) => {
-                e.target.querySelectorAll("p img").forEach((icon) => {
-                    icon.classList.remove("active");
-                });
-            });
-        })
-
-        btnLogin.addEventListener("click", () => {
-            toPage(".", "pages", "login", "login.html");
-        });
-        btnCadastro.addEventListener("click", () => {
-            toPage(".", "pages", "cadastro", "cadastro.html");
-        });
-
-        // Não deixa pegar as imagens
-        document.querySelectorAll("img").forEach((img) => {
-                img.addEventListener("contextmenu", e => e.preventDefault());
-                img.addEventListener("dragstart", function (e) {
-                e.preventDefault();
-            });
-        });
-    </script>
+        </script>
     </body>
 
 </html>

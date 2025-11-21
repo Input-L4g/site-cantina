@@ -1,3 +1,5 @@
 [build]
-publish = "public"              # pasta onde está o site estático
-functions = "netlify/functions" # pasta onde estão suas funções serverless
+publish = "public"
+functions = "netlify/functions"
+[functions]
+node_bundler = "esbuild"

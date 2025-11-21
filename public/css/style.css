@@ -3,8 +3,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Julius+Sans+One&family=K2D:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Puritan:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 :root {
-    --site-main-color: #61141A;
-    --bg-site-main-color: #f9efef;
+    --site-main-color: #121212; /* 61141A */
+    --bg-site-main-color: #F5F5F5; /*f9efef*/
     --on-stock-color: #00aa00;
     --off-stock-color: #b00000;
     --disable-funcion-color: #a0a0a0;
@@ -34,7 +34,12 @@ body::-webkit-scrollbar-thumb {
     border: 2px solid transparent;
 }
 
+main {
+    background-color: var(--bg-site-main-color);
+}
+
 header {
+    background-color: var(--site-main-color);
     display: flex;
     justify-content: space-between;
 }
@@ -42,6 +47,10 @@ header {
 footer {
     background-color: var(--site-main-color);
     padding: 2rem 0;
+}
+
+.header-titulo {
+    background-color: var(--site-main-color);
 }
 
 .footer-content {
@@ -87,7 +96,7 @@ footer {
     top: 0;
     left: 0;
     width: 300px;
-    background-color: #201E1F;
+    background-color: var(--site-main-color);
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
     transform: translateX(-100%);
     transition: transform 0.3s ease;
@@ -308,7 +317,7 @@ footer {
 .ver-mais-head {
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: 60%;
     text-align: center;
     background-color: var(--off-stock-color);
     border-radius: 15px;
@@ -517,15 +526,49 @@ footer {
 
 .container-login-cadastro {
     display: flex;
+    /* border: 1px solid white; */
     justify-content: center;
-    height: 70px;
+    height: 4.5rem;
+    width: 22%;
     letter-spacing: 3px;
-    padding: 5px;
+    padding: 0.5rem;
     gap: 1rem;
 }
 
 .container-login-cadastro div {
     cursor: pointer;
+    text-align: center;
+}
+
+.btn-login {
+    font-family: "K2D";
+    color: white;
+    background-color: #201E1F;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 1rem;
+    border-radius: 0.5rem;
+    transition: flex 0.2s ease;
+}
+
+.btn-login:hover {
+    flex: 1;
+}
+
+.btn-logout {
+    color: white;
+    font-family: "K2D";
+    /* display: flex; */
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: transform ease-in-out 0.2s;
+}
+
+.btn-logout:hover {
+    transform: scale(1.1);
 }
 
 .produtos {
@@ -588,7 +631,7 @@ footer {
 .btn-ver-mais {
     width: 100%;
     padding: 10px;
-    background-color: #444;
+    background-color: color-mix(in srgb, var(--site-main-color) 100%, white 20%);
     color: white;
     border: none;
     cursor: pointer;

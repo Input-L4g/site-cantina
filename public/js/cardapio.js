@@ -5,7 +5,9 @@ import {
     formatPrice,
     formatStock,
     setElementValueTemporarily,
-    removeAccentuation
+    removeAccentuation,
+    serverLessFunction,
+    createRequestOptions
 } from "./utils.js";
 
 import {
@@ -96,8 +98,7 @@ class Cardapio {
         return div;
     }
 
-    renderCardapio() {
-        // Fazer método para renderizar todo o cardápio no index.html
+    renderCardapio(clearOldCardapio = true) {
         this.cardapioSection.innerHTML = "";
         const modalCloseBtn = modal.querySelector("#btn-add-product");
         const modalHead = document.querySelector(".ver-mais-head");
@@ -422,9 +423,4 @@ cardapio.addItem(
     5
 );
 
-// cardapio.showItem("kibe");
-
-// cardapio.removeItemFromCategory("salgados", )
-
-// cardapio.showCategories();
 cardapio.renderCardapio();
