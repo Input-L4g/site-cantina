@@ -5,9 +5,7 @@ import {
     formatPrice,
     formatStock,
     setElementValueTemporarily,
-    removeAccentuation,
-    serverLessFunction,
-    createRequestOptions
+    removeAccentuation
 } from "./utils.js";
 
 import {

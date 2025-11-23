@@ -92,6 +92,16 @@ body {
     font-weight: 700;
 }
 
+.aviso {
+    margin-top: 0.2rem;
+}
+
+#mensagem-aviso {
+    color: #b80000;
+    font-weight: 600;
+}
+
+
 /* ESTILO DOS CAMPOS DO FORMULÁRIO */
 input {
     font-family: "K2D";

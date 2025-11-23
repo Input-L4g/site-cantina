@@ -51,3 +51,25 @@ de funções serverless do Netlify, além de descartar o uso de
 localStorage como DB, será usado no lugar o Blobs do netlify.
 
 A adaptação do script crud_user.js para o uso de Blobs.
+
+============= (21-11-2025) =============
+
+Foi desenvolvido a função serverless addUser.mjs, usando
+Blobs para armazenamento. Após inúmeros testes, foi conseguido
+acessar a função serverless, porém cai no erro 409 (método inválido),
+própriamente customizado pela função, ou seja, a função retornava
+esse erro. Para arrumar, precisa debugar essa parte no Netlify.
+
+OBS: O netlify não está aplicando o novo conteúdo do deploy.
+
+============= (23-11-2025) =============
+
+Netlify foi totalmente descartado. Será usado localStorage para
+armazenamento de dados, seja elese sensíveis ou brutos.
+Foi aplicado efeitos quando o usuário está logado
+e quando ele não está logado, como aparecer o perfil ou login e cadastro.
+
+Após isso, investigar o motivo de localStorage.getItem("hasLogged") estar virando
+true, por mais que nada toque nele.
+
+Falta adicionar os botões para adicionar, remover e editar produtos.
