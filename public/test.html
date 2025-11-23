@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Linkando no Backend</title>
 </head>
 <body>
-    <script>
-        const event = new Event("eventoCustomizado");
-        document.addEventListener("eventoCustomizado", () => {
-            console.log("Evento disparado!!");
+    <button id="btnLink">Ir para Home Page</button>
+    <script type="module">
+        import { toPage, createRootPath } from "./js/utils.js";
+        const btn = document.querySelector("#btnLink");
+
+        btn.addEventListener("click", () => {
+            toPage();
         });
-        document.dispatchEvent(event);
     </script>
 </body>
 </html>

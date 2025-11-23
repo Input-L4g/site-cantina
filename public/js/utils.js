@@ -179,7 +179,7 @@ export function join(...path) {
  * Se vazio, será usado o caminho para o index.html.
  */
 export function toPage(...pagePath) {
-    if (pagePath) {
+    if (pagePath.length > 0) {
         if (pagePath.length > 1) {
             pagePath = join(...pagePath);
         } else {
