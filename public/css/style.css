@@ -455,10 +455,14 @@ footer {
     border-radius: 10px;
     border: 2px solid white;
     font-family: "K2D";
-    display: flex;
+    display: none;
     justify-content: start;
     cursor: pointer;
     gap: 1rem;
+}
+
+.opt-menu.active {
+    display: flex;
 }
 
 .opt-menu img {
@@ -544,7 +548,7 @@ footer {
     font-family: "K2D";
     color: white;
     background-color: #201E1F;
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     padding: 0 1rem;
@@ -556,6 +560,10 @@ footer {
     flex: 1;
 }
 
+.btn-login.active {
+    display: flex;
+}
+
 .btn-logout {
     color: white;
     font-family: "K2D";
@@ -564,11 +572,18 @@ footer {
     flex-direction: column;
     justify-content: center;
     font-size: 1.2rem;
+    padding: 0 1rem;
+    border-radius: 0.5rem;
+    background-color: #201E1F;
     transition: transform ease-in-out 0.2s;
 }
 
 .btn-logout:hover {
     transform: scale(1.1);
+}
+
+.btn-logout.active {
+    display: flex;
 }
 
 .produtos {

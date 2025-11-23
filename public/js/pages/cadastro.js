@@ -1,30 +1,23 @@
-import {
-    toPage,
-    serverLessFunction,
-    createRequestOptions
-} from "../utils.js";
+import { toPage } from "../utils.js";
+import { createUser } from "../userCrud.js";
 
 const formCadastro = document.getElementById("form-cadastro");
 const warningText = document.querySelector("#mensagem-aviso");
 
-formCadastro.addEventListener("submit", async (e) => {
-    const userData = {
+formCadastro.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const rawUserData = {
         name: document.querySelector("#name").value,
         email: document.querySelector("#email").value,
+        phoneNumber: document.querySelector("#phone-number").value,
         password: document.querySelector("#password").value,
         confirmPassword: document.querySelector("#confirm-password").value,
     }
-    e.preventDefault();
-    const response = await serverLessFunction("usersAdd", createRequestOptions("POST", userData));
-    const statusCode = response.statusCode;
-    console.log(response);
-    const message = response.body.message;
-    if (statusCode === 200) {
-        toPage("../../pages/login/login.html");
+    const response = createUser(rawUserData);
+    if (response.code < 0) {
+        warningText.textContent = response.message || "Erro não reconhecido.";
         return;
-    } if (statusCode === 500) {
-        console.log(message);
-    } else {
-        warningText.textContent = message;
     }
+    warningText.textContent = "";
+    toPage("/public", "pages", "login", "login.html");
 }); 

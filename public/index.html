@@ -20,22 +20,22 @@
                     <!-- Cadápio, Meus pedidos, Perfil, Sobre -->
                     <div class="opt-aside">
                         <button id="btn-cardapio"
-                            class="opt-menu"><img
+                            class="opt-menu active"><img
                                 src="./img/cardapio-menu.webp"><div>Cardápio</div></button>
-                        <button id="btn-meus-pedidos" class="opt-menu"><img
+                        <button id="btn-meus-pedidos" class="opt-menu active"><img
                                 src="./img/meus-pedidos-icon.webp"><div>Meus
                                 pedidos</div></button>
-                        <button id="btn-perfil" class="opt-menu"><img
+                        <button id="btn-perfil" class="opt-menu active"><img
                                 src="./img/perfil-icon.webp"><div>Perfil</div></button>
-                        <button id="btn-sobre" class="opt-menu"><img
+                        <button id="btn-sobre" class="opt-menu active"><img
                                 src="./img/sobre-icon.webp"><div>Sobre</div></button>
                     </div>
                 </aside>
             </div>
             <div class="header-titulo">ESPAÇO GOURMET</div>
             <div class="container-login-cadastro">
-                <div id="btn-login" class="btn-login">Login</div>
-                <div id="btn-cadastro" class="btn-login">Cadastrar</div>
+                <div id="btn-login" class="btn-login active">Login</div>
+                <div id="btn-cadastro" class="btn-login active">Cadastrar</div>
                 <div id="btn-logout" class="btn-logout">Log Out</div>
             </div>
         </header>
@@ -130,44 +130,7 @@
                 <p>© 2025 Senai Gourmet. Todos os direitos reservados.</p>
             </div>
         </footer>
-        <script type="module" src="./js/aside-menu.js"></script>
-        <script type="module" src="./js/cardapio.js"></script>
-        <script type="module" src="./js/ver-mais-menu.js"></script>
-        <script type="module">
-            import { toPage } from "./js/utils.js";
-
-            const btnLogin = document.querySelector("#btn-login");
-            const btnCadastro = document.querySelector("#btn-cadastro");
-            const pagamentoBoxs = document.querySelectorAll(".sobre-formas-pagamento div p");
-
-            pagamentoBoxs.forEach((e) => {
-                e.addEventListener("mouseenter", (e) => { 
-                    e.target.querySelectorAll("p img").forEach((icon) => {
-                        icon.classList.add("active");
-                    });
-                });
-                e.addEventListener("mouseleave", (e) => {
-                    e.target.querySelectorAll("p img").forEach((icon) => {
-                        icon.classList.remove("active");
-                    });
-                });
-            })
-
-            btnLogin.addEventListener("click", () => {
-                toPage(".", "pages", "login", "login.html");
-            });
-            btnCadastro.addEventListener("click", () => {
-                toPage(".", "pages", "cadastro", "cadastro.html");
-            });
-
-            // Não deixa pegar as imagens
-            document.querySelectorAll("img").forEach((img) => {
-                    img.addEventListener("contextmenu", e => e.preventDefault());
-                    img.addEventListener("dragstart", function (e) {
-                    e.preventDefault();
-                });
-            });
-        </script>
+        <script type="module" src="./js/index.js"></script>
     </body>
 
 </html>

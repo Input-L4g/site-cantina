@@ -3,80 +3,47 @@ import { homePageFileName, rootPath } from "./global.js";
 const overlayMenu = document.querySelector("#overlay-menu");
 const body = document.querySelector("body");
 
+
 /**
- * Cria uma resposta HTTP.
- * @param {number} statusCode Código de resposta.
- * @param {object} body Conteúdo da reposta.
+ * Verifica se um objeto tem alguma chave com um certo valor.
+ * @param {*} o Objeto que será verificado.
+ * @param {*} value Valor procurado.
+ * @returns {boolean} Se o objeto tem o valor procurado.
  */
-export function createHTTPResponse(statusCode, body = null, headers = null) {
-    const defaultHeaders = {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-    };
-    const shallowOpts = {
-        statusCode,
-        headers: headers || defaultHeaders
-    };
-    if (body !== null) {
-        shallowOpts.body = JSON.stringify(body);
+export function objectHasValue(o, value) {
+    for (const key in o) {
+        if (o[key] === value) return true;
     }
-    return shallowOpts;
+    return false;
 }
 
 /**
- * Cria uma requisição HTTP.
- * @param {string} method Método da requisição. Por padrão é "GET".
- * @param {BodyInit} body Corpo da requisição.
- * @param {HeadersInit} headers Header da requisição.
- * @returns {object} Requesição criada com os parâmetros válidos.
- * Os parâmetros inválidos foram substituidos por valores padrões.
+ * Mescla objetos.
+ * @param  {...object} objs Objetos que serão mesclados, prevalece as informações dos últimos.
+ * @returns {object} Objeto mesclado.
  */
-export function createRequestOptions(
-    method = "GET",
-    body = null,
-    headers = null
-) {
-    const defaultHeaders = {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-    };
-    const shallowOpts = {
-        method,
-        headers: headers || defaultHeaders,
-    };
-    if (body !== null && method !== "GET") {
-        shallowOpts.body = JSON.stringify(body);
-    }
-    return shallowOpts;
+export function mergeObjects(...objs) {
+    return Object.assign({}, ...objs);
 }
 
 /**
- * Executa uma requisição HTTP com fetch.
- * @param {string} endpoint Endpoint da requisição.
- * @param {object | null } content Conteúdo da requisição. Por padrão é null.
- * @returns {Promise<Response>} Resposta da requisição.
+ * Filtra um objeto, retornando apeneas chaves especificadas.
+ * @param {object} o Objeto.
+ * @param {Array<string>} searchedKeys Arrays das chaves procuradas.
+ * @returns {object} Objeto com as chaves filtradas. 
+ * Se não tiver nenhuma chave buscada, retornará um objeto vazio.
  */
-export async function fetchRequest(endpoint, content = null) {
-    if (content) {
-        console.log("Usando content:", content);
-        return await fetch(endpoint, content);
-    }
-    return await fetch(endpoint);
-}
-
-/**
- * Executa uma função serverless do Netlify, passando o método, header e body.
- * Essa função aplica automáticamente a stringficação de objetos.
- * @param {string} functionEndpoint Nome e endpoint da função serverless.
- * @param {object | null} content Conteúdo da requisição. Por padrão é null.
- * @returns {Promise | Response} Apenas o body já parseado ou o objeto Response inteiro.
- */
-export async function serverLessFunction(functionEndpoint, content = null) {
-    const response = await fetchRequest(
-        join("/.netlify", "functions", functionEndpoint),
-        content
+export function filterObject(o, searchedKeys) {
+    let i = false;
+    searchedKeys.forEach((v) => {
+        if (!i && Object.hasOwn(v)){
+            i = true;
+        }
+    });
+    if (!i) return {};
+    return Object.fromEntries(
+        Object.entries(o).filter(([key]) => searchedKeys.includes(key))
     );
-    return await (response.body !== undefined? response.json() : response);
 }
 
 /**
@@ -90,6 +57,17 @@ export function removeAccentuation(t) {
         .replace(/[\u0300-\u036f]/g, ""); // Remove os caracteres de acentuação
 }
 
+/**
+ * Define texto para um elemento HTML temporariamente.
+ * Após esse tempo, o texto anterior voltará, caso nenhum outro tenha sido definido.
+ * @param {Element} element Elemento que terá seu valor alterado temporariamente.
+ * @param {string} newValue Texto que substituirá o texto do elemento.
+ * @param {number} interval Duração em ms que o novo texto ficará.
+ * @param {string} defaultValue Texto que aparecerá quando o tempo acabar.
+ * Se null, será usado o texto anterior.
+ * @param {Function} callback Função que será chamada quando o tempo terminar. 
+ * @returns {number} Id do Timeout usado.
+ */
 export function setElementValueTemporarily(
     element,
     newValue,
@@ -101,12 +79,13 @@ export function setElementValueTemporarily(
         defaultValue = element.textContent;
     }
     element.textContent = newValue;
-    setTimeout(() => {
+    const id = setTimeout(() => {
         if (callback !== null) {
             callback();
         }
         element.textContent = defaultValue;
     }, interval);
+    return id;
 }
 
 export function getCurrentPageName() {
@@ -209,7 +188,7 @@ export function toPage(...pagePath) {
         window.location.href = pagePath;
         return;
     }
-    toPage(createRootPath(homePageFileName));
+    toPage(createRootPath("index.html"));
 }
 
 export function bindOverlay(

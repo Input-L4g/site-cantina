@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
-    <body>
-        <script type="module">
-            import {
-                generateId
-            } from "../src/utils/user_crud.js";
-
-            const email = "";
-            const phoneNumber = 13997483828;
-            const result = generateId(email, phoneNumber);
-            console.log(result);
-            console.log(result.length === (email.length + String(phoneNumber).length));
-        </script>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const event = new Event("eventoCustomizado");
+        document.addEventListener("eventoCustomizado", () => {
+            console.log("Evento disparado!!");
+        });
+        document.dispatchEvent(event);
+    </script>
+</body>
 </html>
