@@ -206,7 +206,7 @@ footer {
 .sobre-contact-container {
     width: 100%;
     display: flex;
-    justify-content: start;
+    justify-content: center;
     gap: 1rem;
     padding: 0 1rem;
 }

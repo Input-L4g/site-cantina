@@ -20,6 +20,10 @@ header {
     display: flex;
 }
 
+.header-titulo {
+    background-color: transparent;
+}
+
 /* Menu lateral */
 aside {
     width: 250px;

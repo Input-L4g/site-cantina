@@ -9,8 +9,8 @@ import {
 import { 
     hasLoggedStorageName, 
     loggedUserStorageName, 
-    phoneNumberExceptionsCharsRegex,
-    minCharacteresInSignUp
+    phoneNumberExceptionsCharsRegex
+    // minCharacteresInSignUp
 } from "../global.js"
 import { readUser, updateUser, showUsers, getUserId } from "../userCrud.js"
 

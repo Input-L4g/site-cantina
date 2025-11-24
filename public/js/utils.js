@@ -28,11 +28,13 @@ const body = document.querySelector("body");
  * } Resposta da função.
  */
 export function valideUserDataFields(userData, onlyFields = null, searchedKeys = null) {
+    const defaultArray = ["name", "email", "password"];
     if (onlyFields === null) 
         /** @type {Array} */
-        onlyFields = [];
+        onlyFields = defaultArray;
     if (searchedKeys === null)
-        searchedKeys = ["name", "email", "password"];
+        /** @type {Array} */
+        searchedKeys = defaultArray;
 
     const minNameChar = minCharacteresInSignUp.name;
     const minPasswordChar = minCharacteresInSignUp.password;
@@ -66,7 +68,6 @@ export function valideUserDataFields(userData, onlyFields = null, searchedKeys =
         if (!hasSpecialCharactersRegex.test(fieldPassword))
             return createFunctionResponse(-11); // Não tem caracteres especiais
     }
-    console.log("Campo avaliado:", fieldPassword);
     return createFunctionResponse(0);
 }
 
@@ -330,6 +331,13 @@ export function toPage(...pagePath) {
     toPage(createRootPath(homePageFileName));
 }
 
+/**
+ * Aplica overlay automático para entrar e sair de um modal.
+ * @param {HTMLElement} modal Modal que será exibido.
+ * @param {HTMLElement} btnOpenOverlay Botão que abrirá o modal. 
+ * @param {HTMLElement} btnCloseOverlay Botão que fechará o modal. Opcional.
+ * @param {Function} callback Callback executado quando o modal abrir e fechar.
+ */
 export function bindOverlay(
     modal,
     btnOpenOverlay,
@@ -374,15 +382,15 @@ export function bindCloseOverlay(
 ) {
     if (btnCloseOverlay) {
         btnCloseOverlay.addEventListener("click", () => {
-            closeOverlay(modal);
+            closeOverlay(modal, callback);
         });
     }
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
-            closeOverlay(modal);
+            closeOverlay(modal, callback);
         }
     });
     overlayMenu.addEventListener("click", () => {
-        closeOverlay(modal);
+        closeOverlay(modal, callback);
     });
 }
