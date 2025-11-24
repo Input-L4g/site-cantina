@@ -75,6 +75,19 @@ input {
     gap: 3rem;
 }
 
+.aviso {
+    text-align: center;
+}
+
+.warning {
+    font-weight: 500;
+    color: #C75A5A;
+}
+
+.warning.green {
+    color: #5FAF79;
+}
+
 /* Layout principal */
 .container {
     display: flex;
@@ -94,7 +107,8 @@ input {
     top: 2rem;
     left: 5rem;
     width: 30rem;
-    height: 25rem;
+    height: auto;
+    padding: 2rem 0;
     background-color: color-mix(in srgb, var(--body-bg-color) 80%, black 10%);
     flex-direction: column;
     align-items: center;
@@ -135,7 +149,7 @@ input {
 }
 
 .btn-confirm {
-    height: 10%;
+    height: 2rem;
     border-radius: 0.4rem;
     color: white;
     font-weight: 500;

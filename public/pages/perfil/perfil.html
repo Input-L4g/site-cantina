@@ -23,7 +23,7 @@
                     <button id="perfil-btn" class="active">PERFIL</button>
                     <button id="senha-btn">SENHA</button>
                 </div>
-                <button class="btn-vermelho">DELETAR CONTA</button>
+                <button id="delete-account" class="btn-vermelho">DELETAR CONTA</button>
             </aside>
             <main>
                 <section class="menu-section active" id="section-perfil">
@@ -32,18 +32,18 @@
                         <p>Informações para identificação.</p>
                         <section>
                             <label for="nome">Nome:</label>
-                            <input id="nome" placeholder="Nome De Exemplo">
+                            <input id="nome" placeholder="Nome De Exemplo" required>
                         </section>
                         <section>
                             <label for="email">Email:</label>
-                            <input id="email" placeholder="exemplo@gmail.com">
+                            <input id="email" placeholder="exemplo@gmail.com" required>
                         </section>
 
                         <section>
                             <label for="telefone">Telefone:</label>
-                            <input id="telefone" placeholder="(XX) XXXXX-XXXX">
+                            <input id="telefone" placeholder="(XX) XXXXX-XXXX" required>
                         </section>
-                        <button class="btn-confirm" type="submit">ATUALIZAR
+                        <button id="update-perfil" class="btn-confirm" type="submit">ATUALIZAR
                             PERFIL</button>
                     </form>
                 </section>
@@ -55,13 +55,17 @@
                         <section>
                             <label for="senha-original">Senha original:</label>
                             <input id="senha-original" type="password"
-                                placeholder="**********">
+                                placeholder="**********" required>
+                            <p class="warning old-password">
+                            </p>
                         </section>
 
                         <section>
                             <label for="nova-senha">Nova senha:</label>
                             <input id="nova-senha" type="password"
-                                placeholder="**********">
+                                placeholder="**********" required>
+                            <p class="warning new-password">
+                            </p>
                         </section>
 
                         <section>
@@ -69,10 +73,12 @@
                                 senha:</label>
                             <input id="confirmar-senha"
                                 type="password"
-                                placeholder="**********">
+                                placeholder="**********" required>
+                            <p class="warning confirm-password">
+                            </p>
                         </section>
 
-                        <button class="btn-confirm" type="submit">REDEFINIR
+                        <button id="update-password" class="btn-confirm" type="submit">REDEFINIR
                             SENHA</button>
                     </form>
                 </section>
