@@ -1,27 +1,51 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
+    
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Gourmet - Página Principal</title>
         <link rel="shortcut icon" href="img/restaunte-gourmet.ico"
-            type="image/x-icon">
+        type="image/x-icon">
         <link rel="stylesheet" href="./css/global.css">
         <link rel="stylesheet" href="./css/style.css">
     </head>
-
+    
     <body>
-        <div class="overlay-menu" id="overlay-menu"></div>
+        <div class="speed-dial">
+            <button class="fab" id="fab-main"><img src="./img/caixa.webp"></button>
+            
+            <div class="fab-options" id="fab-options">
+                <button class="fab-option" id="btn-mais"><img src="./img/plus.webp"></button>
+                <button class="fab-option" id="btn-edit"><img src="./img/edit.webp"></button>
+                <button class="fab-option" id="btn-lixeira"><img src="./img/lixeira.webp"></button>
+            </div>
+        </div>
+        <div class="overlay-checkbox" id="overlayCheckbox">
+            <div class="modal-conteudo">
+                <span class="fechar">&times;</span>
+                <h2>Modal do REMOVE</h2>
+                <p>Este é o conteúdo principal da pagina de remoção.</p>
+            </div>
+            </div>
+        <div class="overlay-checkbox-edit" id="overlayCheckboxEdit">
+            <div class="modal-conteudo-edit">
+                <span class="fechar-edit">&times;</span>
+                <h2>Modal do EDIT</h2>
+                <p>Este é o conteúdo principal da pagina de edit.</p>
+            </div>
+        </div>
+       
         <header>
+            <div class="overlay-menu" id="overlay-menu"></div>
             <div class="menu">
                 <img class="btn-open-menu" src="./img/menu-icon.webp">
                 <aside id="menu-aside" class="menu-aside">
                     <!-- Cadápio, Meus pedidos, Perfil, Sobre -->
                     <div class="opt-aside">
                         <button id="btn-cardapio"
-                            class="opt-menu active"><img
-                                src="./img/cardapio-menu.webp"><div>Cardápio</div></button>
+                        class="opt-menu active"><img
+                        src="./img/cardapio-menu.webp"><div>Cardápio</div></button>
                         <button id="btn-meus-pedidos" class="opt-menu active"><img
                                 src="./img/meus-pedidos-icon.webp"><div>Meus
                                 pedidos</div></button>
@@ -30,6 +54,7 @@
                         <button id="btn-sobre" class="opt-menu active"><img
                                 src="./img/sobre-icon.webp"><div>Sobre</div></button>
                     </div>
+                    
                 </aside>
             </div>
             <div class="header-titulo">ESPAÇO GOURMET</div>
@@ -113,7 +138,9 @@
                             class="btn-add-product">ADICIONAR</button>
                     </div>
                 </div>
-            </div>
+
+
+        </div>
             <section id="cardapio">
                 <!-- Aqui será renderizado automaticamente pelo JS -->
                 <!-- Veja o arquivo /js/cardapio.js para ver o funcionamento -->
@@ -130,7 +157,110 @@
                 <p>© 2025 Senai Gourmet. Todos os direitos reservados.</p>
             </div>
         </footer>
+           <script>
+        const main = document.getElementById("fab-main");
+        const options = document.getElementById("fab-options");
+
+        main.addEventListener("click", () => {
+            options.classList.toggle("open");
+        });
+    </script>
         <script type="module" src="./js/index.js"></script>
+       
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // --- MODAL DE REMOÇÃO (Lixeira) ---
+    var modalRemove = document.getElementById("overlayCheckbox");
+    var btnRemove = document.getElementById("btn-lixeira");
+    var spanRemove = document.getElementsByClassName("fechar")[0];
+    
+    if (btnRemove && modalRemove && spanRemove) {
+        btnRemove.onclick = function() {
+            modalRemove.style.display = "block";
+        }
+        spanRemove.onclick = function() {
+            modalRemove.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == modalRemove) {
+                modalRemove.style.display = "none";
+            }
+        }
+    }
+
+    // --- MODAL DE EDIÇÃO ---
+    var modalEdit = document.getElementById("overlayCheckboxEdit"); // AGORA BUSCA O ID CORRETO
+    var btnEdit = document.getElementById("btn-edit");
+    var spanEdit = document.getElementsByClassName("fechar-edit")[0];
+
+    if (btnEdit && modalEdit && spanEdit) {
+        btnEdit.onclick = function() {
+            modalEdit.style.display = "block";
+        }
+        spanEdit.onclick = function() {
+            modalEdit.style.display = "none";
+        }
+    }
+});
+</script>
+
+        <script type="module">
+            import {toPage} from "./js/utils.js";
+            const btnCadastro = document.querySelector("#btn-cadastro");
+
+            btnCadastro.addEventListener("click", () => {
+                toPage(".", "pages", "cadastro", "cadastro.html");
+            });
+        </script>
+
+        <script type="module">
+            import {toPage} from "./js/utils.js";
+            const btnLogin = document.querySelector("#btn-login");
+
+            btnLogin.addEventListener("click", () => {
+                toPage(".", "pages", "login", "login.html");
+            });
+        </script>
+
+        <script type="module">
+            import {toPage} from "./js/utils.js";
+            const btnCardapio = document.querySelector("#btn-cardapio");
+
+            btnCardapio.addEventListener("click", () => {
+                toPage("index.html");
+            });
+        </script>
+
+        <script type="module">
+            import {toPage} from "./js/utils.js";
+            const btnMeusPedidos = document.querySelector("#btn-meus-pedidos");
+
+            btnMeusPedidos.addEventListener("click", () => {
+                toPage(".", "pages", "meus-pedidos", "meus-pedidos.html");
+            });
+        </script>
+
+        <script type="module">
+            import {toPage} from "./js/utils.js";
+            const  btnPerfil = document.querySelector("#btn-perfil");
+
+            btnPerfil.addEventListener("click", () => {
+                toPage(".", "pages", "perfil", "perfil.html");
+            });
+        </script>
+
+        <script type="module">
+            import {toPage} from "./js/utils.js";
+            const  btnMais= document.querySelector("#btn-mais");
+
+            btnMais.addEventListener("click", () => {
+                toPage(".", "pages", "editar-cardapio", "adicionar-item.html");
+            });
+        </script>
+     
+        
     </body>
 
 </html>

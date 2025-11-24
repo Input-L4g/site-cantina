@@ -79,5 +79,14 @@
             </main>
         </div>
         <script type="module" src="../../js/pages/perfil.js"></script>
+       
+       <script type="module">
+            import {toPage} from "../../js/utils.js";
+            const btnPerfil = document.querySelector("#btn-back-page");
+
+            btnPerfil.addEventListener("click", () => {
+                    toPage();
+            });
+        </script>
     </body>
 </html>

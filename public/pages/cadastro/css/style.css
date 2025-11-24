@@ -24,8 +24,7 @@ body.cadastro main.cadastro-container {
 
 /* 1. ESTILO DO CABEÇALHO SUPERIOR (VERMELHO/VINHO) */
 .cabecalho-topo {
-    background-color: #640000;
-    /* Cor vinho/vermelho escuro */
+    background-color: #640000; /* Cor vinho/vermelho escuro */
     color: white;
     text-align: center;
     padding: 1.5rem 0;
@@ -35,10 +34,8 @@ body.cadastro main.cadastro-container {
 
 .cabecalho-topo h1 {
     font-size: 2.5rem;
-    font-weight: 500;
-    letter-spacing: 13px;
+    font-weight: 700;
 }
-
 
 /* 2. LAYOUT DE DUAS COLUNAS COM FLEXBOX */
 .cadastro-container {

@@ -1,0 +1,59 @@
+
+/* --- Reset Básico e Fontes --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'K2D', sans-serif; 
+}
+
+body {
+    background-color: #F9EFEF;
+    overflow-y: auto; 
+}
+
+/* --- Cabeçalho e Título Principal --- */
+.cabecalho-topo {
+    background-color: #640000; 
+    color: white;
+    text-align: center;
+    padding: 1.5rem 0;
+    width: 100%;
+}
+
+.cabecalho-topo h1 {
+    font-size: 2.5rem;
+    font-weight: 500;
+    font-family: "Julius Sans One", sans-serif;
+}
+
+.tabela-preta {    
+    position: relative;
+    top: 10rem;
+    left: 8rem;
+    width: 40%;
+    border-collapse: collapse;
+    
+}
+.tabela-preta tr{
+    margin: 3rem;
+}
+.tabela-preta th,
+.tabela-preta td { 
+    padding: 10px;
+    text-align: left;
+    background-color: #1a1a1a; 
+    color: #FFFFFF; 
+}
+
+.tabela-preta th {
+            background-color: #1a1a1a; 
+            font-weight: bold;
+
+        }
+.produto-titulo, .preco-titulo {
+            border-bottom: solid #640000;
+}
+.valor-titulo {
+    border-top: solid #640000 ;
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="./css/adicionar-item.css">
+<title>Add-item</title>
+</head>
+<body>
+    <header class="cabecalho-topo">
+     <h1>ESPAÇO GOURMET</h1>
+    </header>
+    
+    <!-- NOVO CONTÊINER PARA ALINHAR FORM E IMAGEM -->
+    <div class="main-content"> 
+        
+        <!-- SEU FORMULÁRIO EXISTENTE -->
+        <form>
+            <div class="container">
+                <div class="titulos">
+                <p class="titulo">Adicionar Produto</p>
+                <p class="subtitulo">Cadastro de um produto no cardapio</p>
+                </div>
+                <label>Nome do produto:</label>
+                <input class="nome-produto" placeholder="Nome do produto...">
+                <div class="select">
+                    <p class="categoria">Categoria: </p>
+                <select class="categoria" id="categoria">
+                    <option value="salgado">Salgados</option>
+                    <option value="doces">Doces</option>
+                    <option value="bebidas">Bebidas</optio>
+                    <option value="lanches">Lanches</option>
+                    <option value="snacks">Snacks</option>
+                    <option value="sobremesas frias">Sobremesas Frias</option>
+                    <option value="refeicoes">Refeições</option>
+                    <option value="lanches">Lanches</option>
+                </select>
+                </div>
+                <p>Descrição:</p>
+                <!-- A classe correta é descricao-texto (ajustada no CSS) -->
+                <textarea class="descricao-texto" placeholder="descreva o seu produto"></textarea> 
+                
+                <!-- CAMPOS PREÇO E QUANTIDADE (ajustados para melhor layout) -->
+                <div class="valor-quantidade">
+                    <div class="input-grupo">
+                        <label class="preco" for="preco-produto">Preço do produto:</label>
+                        <input id="preco-produto" class="valor" type="text" value="R$ 0,00">
+                    </div>
+                    <div class="input-grupo">
+                        <label class="quantidade" for="quantidade-disponivel">Quantidade disponível:</label>
+                        <input id="quantidade-disponivel" class="quantidade-2" type="number" value="10" min="0">
+                    </div>
+                </div>
+
+                <!-- BOTÕES DE AÇÃO (ajustado para usar a classe .botoes) -->
+                <div class="botoes"> 
+                    <button type="reset" class="btn-vermelho">CANCELAR</button>
+                    <button type="submit" class="btn-verde">ADICIONAR</button>
+                </div>
+
+            </div>
+        </form>
+        
+        <!-- BLOCO DA IMAGEM AGORA ESTÁ FORA DO FORM -->
+        <div class="bloco-imagem">
+            <p class="titulo-imagem">Adicionar imagem do produto</p>
+            
+            <div class="area-drop">
+                Clique ou arraste a imagem aqui
+                <input type="file" id="upload-imagem" accept="image/*" hidden>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
