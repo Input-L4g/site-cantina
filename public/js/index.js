@@ -9,6 +9,7 @@ import { clearUsersTable, showUsers } from "./userCrud.js"
 document.addEventListener("userHasLeftEvent", userHasLeft);
 document.addEventListener("userHasLoggedEvent", userHasLogged);
 
+if (getLocalStorage(hasLoggedStorageName))
 window.clearUsersTable = clearUsersTable;
 window.showUsers = showUsers;
 

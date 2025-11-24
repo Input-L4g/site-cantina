@@ -21,6 +21,7 @@ document.querySelectorAll("#form-cadastro input").forEach((input) => {
             confirmPassword: inputConfirmPassword.value,
         };
         const validationResponse = valideUserDataFields(userData);
+        console.log("Code:", validationResponse.code);
         if (validationResponse.code < 0)
             warningText.textContent = validationResponse.message;
         else

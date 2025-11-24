@@ -6,11 +6,22 @@ const tableName = "users";
 //! ========== UTILS functions ==========
 
 /**
+ * Verifica se um usuário é ADM
+ * @param {string | { email: string, phoneNumber: string }} userIdOrData Id do usuário ou
+ * email e telefone.
+ * @returns {{ code: number, message: string, err: string | Error }
+ * } Resposta da função.
+ */
+export function isAdmUser(userIdOrData) {
+    const user = readUser(userIdOrData);
+}
+
+/**
  * Verifica se os dados de um usuário existem.
  * @param {{ name: string, email: string, phoneNumber: string, password: string}
  * } userData Dados de usuário.
  * @returns {{ code: number, message: string, err: string | Error }
- * } Se o usuário foi autenticado.
+ * } Resposta da função.
  */
 export function authUser(userData) {
     const id = getUserId(userData);
