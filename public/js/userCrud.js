@@ -1,5 +1,4 @@
-import { filterObject, mergeObjects } from "./utils.js";
-import { functionResponseCodeMap } from "./global.js";
+import { filterObject, mergeObjects, createFunctionResponse } from "./utils.js";
 
 //! ========== GLOBAL variables ==========
 const tableName = "users";
@@ -36,28 +35,6 @@ export function showUsers() {
         const user = users[id];
         console.log(`${id} -`, user.name, user.email, user.phoneNumber, user.password);
     }
-}
-
-/**
- * Cria uma resposta de função.
- * @param {number} code Código da resposta. Consulte `functionResponseCodeMap` em `global.js`
- * @param {string} message Mensagem da resposta. Opcional
- * @param {string | Error} err Erro da resposta. Opcional
- * @param {boolean} autoMessage Indica se deve pegar uma mensagem genérica.
- * @returns {{ code: number, message: string, err: string | Error }} Resposta gerada.
- */
-function createFunctionResponse(
-    code,
-    message = null,
-    err = null,
-    autoMessage = true
-) {
-    const response = { code };
-    if (message !== null) response["message"] = message;
-    else if (autoMessage) response["message"] = functionResponseCodeMap[code];
-    if (err !== null)
-        response["err"] = typeof err === "string" ? err : err.response || err;
-    return response;
 }
 
 /**
@@ -221,7 +198,7 @@ function addInUsersTable(id, data) {
  * @param {any} default_ Retorno padrão caso o usuário não seja encontrado.
  * @returns {object | null} O usuário buscado ou null.
  */
-export function getInUsersTable(id, default_ = null) {
+function getInUsersTable(id, default_ = null) {
     const loadedUsers = loadUsersTable();
     if (!hasExistsUser(id, loadedUsers)) return default_;
     return loadedUsers[id];
@@ -278,7 +255,7 @@ export function createUser(rawUserData) {
  *
  * @param {{ email: string, phoneNumber: string } | string
  * } userIdOrData Pode ser o email e telefone ou o Id direto do usuário.
- * @param {Array} searchedKeys Chaves para filtrar a busca. Se null, será retornado todo o conteúdo. Por padrão é null.
+ * @param {Array<string>} searchedKeys Chaves para filtrar a busca. Se null, será retornado todo o conteúdo. Por padrão é null.
  * @param {any} default_ Retorno padrão caso o usuário não seja encontrado. Por padrão é null.
  * @returns {{ name: string, email: string, phoneNumber: string, password: string}
  * } Informações do usuário buscado. Caso o usuário não exista, será retornado o `default_`
@@ -287,8 +264,10 @@ export function readUser(userIdOrData, searchedKeys = null, default_ = null) {
     try {
         const id = getUserId(userIdOrData);
         const user = getInUsersTable(id, default_); // Retorna o usuário ou default_
-        if (user === default_) return default_;
-        if (filterKey !== null) return filterObject(user, searchedKeys);
+        if (user === default_) 
+            return default_;
+        if (searchedKeys !== null) 
+            return filterObject(user, searchedKeys);
         return user;
     } catch (error) {
         return createFunctionResponse(-1, null, error); // Erro inesperado
@@ -309,12 +288,14 @@ export function updateUser(oldUserIdOrData, newUserData) {
         if (!hasExistsUser(oldUserId)) return createFunctionResponse(-4); // Usuário não existe
         const newId = getUserId(newUserData); // Pega o novo Id
         const idHasChanged = oldUserId !== newId; // Verifica se mudou, ou seja, email ou telefone mudaram
+        const oldUserData = getInUsersTable(oldUserId);
         const newUserInfos = mergeObjects(
             // Mecla as informações antigas com as novas
-            getInUsersTable(oldUserId),
-            newUserData
+            oldUserData, // Informações antigas
+            newUserData // Informações novas
         );
-
+        if (oldUserId !== newId && oldUserData === newUserInfos) 
+            return createFunctionResponse(-13);
         if (idHasChanged) deleteInUsersTable(oldUserId); // Apaga o Id antigo se tiver mudado
         setInUsersTable(newId, newUserInfos); // Coloca as novas informações com o Id novo ou antigo
         return createFunctionResponse(0);

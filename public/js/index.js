@@ -1,9 +1,9 @@
 import {} from "./aside-menu.js";
 import {} from "./cardapio.js";
 import {} from "./ver-mais-menu.js";
-import { toPage } from "./utils.js";
+import { toPage, getLocalStorage } from "./utils.js";
 import { userHasLogged, userHasLeft } from "./pages/homePage.js";
-import { userHasLeftEvent, userHasLoggedEvent } from "./global.js";
+import { userHasLeftEvent, userHasLoggedEvent, hasLoggedStorageName } from "./global.js";
 import { clearUsersTable, showUsers } from "./userCrud.js"
 
 document.addEventListener("userHasLeftEvent", userHasLeft);
@@ -28,7 +28,7 @@ pagamentoBoxs.forEach((e) => {
             icon.classList.remove("active");
         });
     });
-})
+});
 
 btnLogin.addEventListener("click", () => {
     toPage(".", "pages", "login", "login.html");
@@ -46,12 +46,8 @@ document.querySelectorAll("img").forEach((img) => {
         e.preventDefault();
     });
 });
-console.log(localStorage.getItem("hasLogged"));
-if (!localStorage.getItem("hasLogged")) {
+
+if (!getLocalStorage(hasLoggedStorageName))
     document.dispatchEvent(userHasLeftEvent);
-    console.log("Deslogando usuário");
-}
-else {
+else
     document.dispatchEvent(userHasLoggedEvent);
-    console.log("Logando usuário");
-}

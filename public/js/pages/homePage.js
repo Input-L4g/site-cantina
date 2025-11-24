@@ -1,11 +1,5 @@
-// import { 
-//     inputName,
-//     inputEmail,
-//     inputPhoneNumber,
-//     inputOldPassword,
-//     inputNewPassword,
-//     inputConfirmNewPassword 
-// } from "./perfil.js"
+import { hasLoggedStorageName } from "../global.js";
+import { setLocalStorage, getLocalStorage } from "../utils.js";
 
 const btnLogin = document.querySelector("#btn-login");
 const btnCadastro = document.querySelector("#btn-cadastro");
@@ -17,8 +11,7 @@ const btnMenuMeusPedidos = document.querySelector("#btn-meus-pedidos");
  * Callback para quando o usuário logar.
  */
 export function userHasLogged() { // Está logado
-    console.log("Usuário Logou!");
-    localStorage.setItem("hasLogged", true);
+    setLocalStorage(hasLoggedStorageName, true); // Define como logado
     btnMenuPerfil.classList.add("active");
     btnMenuMeusPedidos.classList.add("active");
     btnLogin.classList.remove("active");
@@ -29,8 +22,9 @@ export function userHasLogged() { // Está logado
  * Callback para quando o usuário deslogar.
 */
 export function userHasLeft() { // Não está logado
-    console.log("Usuário Deslogou!");
-    localStorage.setItem("hasLogged", false);
+    if (getLocalStorage(hasLoggedStorageName) === true)
+        window.location.reload();
+    setLocalStorage(hasLoggedStorageName, false); // Define como deslogado
     btnMenuPerfil.classList.remove("active");
     btnMenuMeusPedidos.classList.remove("active");
     btnLogin.classList.add("active");

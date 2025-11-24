@@ -1,13 +1,152 @@
-import { homePageFileName, rootPath } from "./global.js";
+import {
+    homePageFileName,
+    rootPath,
+    functionResponseCodeMap,
+    minCharacteresInSignUp,
+    hasOnlyAlphabetAndInternalSpacesRegex,
+    hasAlphabetRegex,
+    hasAccentuationRegex,
+    hasSpecialCharactersRegex,
+    hasNumberCharactersRegex,
+    hasValideEmailRegex
+} from "./global.js";
 
 const overlayMenu = document.querySelector("#overlay-menu");
 const body = document.querySelector("body");
 
 
 /**
+ * Valida os campos de nome, email e senha.
+ * @param {{ name:string, email:string, phoneNumber:string, password:string, confirmPassword:string }
+ * } userData Valores dos campos.
+ * @param {Array<string> | null} onlyFields
+ *  Campos especificos que serão validados, fora estes, os demais serão ignorados. 
+ * Se null, todos os campos serão validados. Por padrão é null.
+ * @param {Array<string> | null} searchedKeys Chaves que serão usadas para procurar em
+ * `userData`. Respectivamente, nome, email e senha.
+ * @returns {{ code: number, message: string, err: string | Error }
+ * } Resposta da função.
+ */
+export function valideUserDataFields(userData, onlyFields = null, searchedKeys = null) {
+    if (onlyFields === null) 
+        /** @type {Array} */
+        onlyFields = [];
+    if (searchedKeys === null)
+        searchedKeys = ["name", "email", "password"];
+
+    const minNameChar = minCharacteresInSignUp.name;
+    const minPasswordChar = minCharacteresInSignUp.password;
+    const fieldName = userData[searchedKeys[0]]?.trim();
+    const fieldEmail = userData[searchedKeys[1]]?.trim();
+    const fieldPassword = userData[searchedKeys[2]]?.trim();
+    if (onlyFields.includes("name") && fieldName !== ""){ // Validação do nome
+        if (fieldName.length < minNameChar)
+            return createFunctionResponse(-5); // Não tem o mínimo de caracteres
+    
+        if (!hasOnlyAlphabetAndInternalSpacesRegex.test(fieldName))
+            return createFunctionResponse(-6); // Não tem só letras
+    }
+
+    if (onlyFields.includes("email") && fieldEmail !== "" && !hasValideEmailRegex.test(fieldEmail))
+        return createFunctionResponse(-12); // Email inválido
+
+    if (onlyFields.includes("password") && fieldPassword !== ""){ // Validação da senha
+        if (fieldPassword.length < minPasswordChar)
+            return createFunctionResponse(-7); // Não tem o mínimo caracteres
+    
+        if (!hasAlphabetRegex.test(fieldPassword))
+            return createFunctionResponse(-8); // Não tem letras
+    
+        if (hasAccentuationRegex.test(fieldPassword))
+            return createFunctionResponse(-9); // Tem letras acentuadas
+    
+        if (!hasNumberCharactersRegex.test(fieldPassword))
+            return createFunctionResponse(-10); // Não tem números
+    
+        if (!hasSpecialCharactersRegex.test(fieldPassword))
+            return createFunctionResponse(-11); // Não tem caracteres especiais
+    }
+    console.log("Campo avaliado:", fieldPassword);
+    return createFunctionResponse(0);
+}
+
+/**
+ * Aplica formatação simultânea à escrita no input de número de telefone.
+ * 
+ * Atende aos padrões (XX) XXXXX-XXXX e (XX) XXXX-XXXX.
+ * @param {Element} inputPhoneNumber 
+ */
+export function formatPhoneNumber(inputPhoneNumber) {
+    inputPhoneNumber.addEventListener("blur", () => {
+        if (inputPhoneNumber.value.replace(/\D/g, "") === "")
+            inputPhoneNumber.value = "";
+    })
+
+    inputPhoneNumber.addEventListener("input", () => {
+        let v = inputPhoneNumber.value;
+
+        // remove tudo que não é número
+        v = v.replace(/\D/g, "");
+
+        // (XX) XXXXX-XXXX ou (XX) XXXX-XXXX
+        if (v.length > 10) {
+            v = v.replace(/(\d{2})(\d{5})(\d{4}).*/, "($1) $2-$3");
+        } else if (v.length > 6) {
+            v = v.replace(/(\d{2})(\d{4})(\d{0,4}).*/, "($1) $2-$3");
+        } else if (v.length > 2) {
+            v = v.replace(/(\d{2})(\d{0,5})/, "($1) $2");
+        } else {
+            v = v.replace(/(\d{0,2})/, "($1");
+        }
+
+        inputPhoneNumber.value = v;
+});
+}
+
+/**
+ * Cria uma resposta de função.
+ * @param {number} code Código da resposta. Consulte `functionResponseCodeMap` em `global.js`
+ * @param {string} message Mensagem da resposta. Opcional
+ * @param {string | Error} err Erro da resposta. Opcional
+ * @param {boolean} autoMessage Indica se deve pegar uma mensagem genérica.
+ * @returns {{ code: number, message: string, err: string | Error }} Resposta gerada.
+ */
+export function createFunctionResponse(
+    code,
+    message = null,
+    err = null,
+    autoMessage = true
+) {
+    const response = { code };
+    if (message !== null) response["message"] = message;
+    else if (autoMessage) response["message"] = functionResponseCodeMap[code];
+    if (err !== null)
+        response["err"] = typeof err === "string" ? err : err.response || err;
+    return response;
+}
+
+/**
+ * Define um valor para uma chave no localStorage.
+ * @param {string} key Chave que será definida. 
+ * @param {any} value Valor para a chave.
+ */
+export function setLocalStorage(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+}
+/**
+ * Pega e parseia um item pego do localStorage
+ * @param {string} key Chave do item no localStorage.
+ * @returns { any } Objeto armazenado.
+ */
+export function getLocalStorage(key) {
+    const itemGetted = localStorage.getItem(key); 
+    return itemGetted !== null? JSON.parse(itemGetted) : itemGetted;
+}
+
+/**
  * Verifica se um objeto tem alguma chave com um certo valor.
- * @param {*} o Objeto que será verificado.
- * @param {*} value Valor procurado.
+ * @param {object} o Objeto que será verificado.
+ * @param {any} value Valor procurado.
  * @returns {boolean} Se o objeto tem o valor procurado.
  */
 export function objectHasValue(o, value) {
@@ -188,7 +327,7 @@ export function toPage(...pagePath) {
         window.location.href = pagePath;
         return;
     }
-    toPage(createRootPath("index.html"));
+    toPage(createRootPath(homePageFileName));
 }
 
 export function bindOverlay(
