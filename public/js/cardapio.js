@@ -7,17 +7,13 @@ import {
     setElementValueTemporarily,
     removeAccentuation,
     createFunctionResponse,
-    createRootPath
+    createRootPath,
 } from "./utils.js";
 
-import {
-    fallBackProductIcon,
-    offStockIcon
-} from "./global.js";
+import { fallBackProductIcon, offStockIcon } from "./global.js";
 
 const modal = document.querySelector("#ver-mais-menu");
 const modalDescriptionProductDiv = document.querySelector(".ver-mais-body");
-
 
 class Cardapio {
     /* Estrutura do cardápio:
@@ -91,19 +87,22 @@ class Cardapio {
     #createSectionTitle(title, capitalized = true) {
         const div = document.createElement("div");
         div.classList.add("titulo-section");
-        div.insertAdjacentHTML("beforeend", `
-            <h1>${capitalized? capitalize(title) : title}</h1>
+        div.insertAdjacentHTML(
+            "beforeend",
+            `
+            <h1>${capitalized ? capitalize(title) : title}</h1>
             <hr>
-        `);
+        `
+        );
         return div;
     }
 
     renderCardapio(clearOldCardapio = true) {
-        if (clearOldCardapio)
-            this.cardapioSection.innerHTML = "";
+        if (clearOldCardapio) this.cardapioSection.innerHTML = "";
         const modalCloseBtn = modal.querySelector("#btn-add-product");
         const modalHead = document.querySelector(".ver-mais-head");
-        for (const key in this.cardapio) { // Itera em cada categoria
+        for (const key in this.cardapio) {
+            // Itera em cada categoria
             const value = this.cardapio[key];
             const categorySection = document.createElement("section");
             categorySection.id = key;
@@ -114,28 +113,43 @@ class Cardapio {
                 const rowDiv = document.createElement("div");
                 rowDiv.classList.add("linha");
                 row.forEach((item) => {
-                    const itemDiv = item.div // Div do item
+                    const itemDiv = item.div; // Div do item
                     // Adiciona ação ao clicar no botão "VER MAIS"
-                    bindOverlay(modal, itemDiv.querySelector(".btn-ver-mais"), modalCloseBtn, (isOpened) => {
-                        if (!isOpened) {
-                            modalDescriptionProductDiv.scrollTop = 0;
-                            return;
+                    bindOverlay(
+                        modal,
+                        itemDiv.querySelector(".btn-ver-mais"),
+                        modalCloseBtn,
+                        (isOpened) => {
+                            if (!isOpened) {
+                                modalDescriptionProductDiv.scrollTop = 0;
+                                return;
+                            }
+                            if (item.stock === 0) {
+                                modalHead.classList.remove("active");
+                                modalCloseBtn.classList.remove("active");
+                                modalCloseBtn.textContent = "INDISPONÍVEL";
+                            } else {
+                                modalHead.classList.add("active");
+                                modalCloseBtn.classList.add("active");
+                                modalCloseBtn.textContent = "ADICIONAR";
+                            }
+                            document.querySelector(
+                                "#product-name"
+                            ).textContent = item.name;
+                            document.querySelector(
+                                "#product-icon"
+                            ).textContent = item.icon;
+                            document.querySelector(
+                                "#product-stock"
+                            ).textContent = formatStock(item.stock);
+                            document.querySelector(
+                                "#product-description"
+                            ).textContent = item.description;
+                            document.querySelector(
+                                "#product-price"
+                            ).textContent = formatPrice(item.price);
                         }
-                        if (item.stock === 0) {
-                            modalHead.classList.remove("active");
-                            modalCloseBtn.classList.remove("active");
-                            modalCloseBtn.textContent = "INDISPONÍVEL";
-                        } else {
-                            modalHead.classList.add("active");
-                            modalCloseBtn.classList.add("active");
-                            modalCloseBtn.textContent = "ADICIONAR";
-                        }
-                        document.querySelector("#product-name").textContent = item.name;
-                        document.querySelector("#product-icon").textContent = item.icon;
-                        document.querySelector("#product-stock").textContent = formatStock(item.stock);
-                        document.querySelector("#product-description").textContent = item.description;
-                        document.querySelector("#product-price").textContent = formatPrice(item.price);
-                    });
+                    );
                     rowDiv.appendChild(itemDiv);
                 });
                 produtosSection.appendChild(rowDiv); // Colocar uma linha em produtos
@@ -148,7 +162,7 @@ class Cardapio {
     #createCategorySection(category, items = null) {
         return {
             name: category,
-            items: items ? items : []
+            items: items ? items : [],
         };
     }
 
@@ -157,12 +171,17 @@ class Cardapio {
         itemDiv.id = item.id;
         itemDiv.classList.add("card");
         itemDiv.classList.add(item.stock > 0 ? "verde" : "vermelho");
-        itemDiv.insertAdjacentHTML("beforeend", `
-            <span class="icone">${item.stock > 0 ? '+' : `<img src="${this.#offStockIcon}">`}</span>
-            <img src="${item.icon || this.#fallbackIcon}" alt="${item.name}">
+        itemDiv.insertAdjacentHTML(
+            "beforeend",
+            `
+            <span class="icone">${
+                item.stock > 0 ? "+" : `<img src="${this.#offStockIcon}">`
+            }</span>
+            <img class="product-image" src="${item.icon || this.#fallbackIcon}" alt="${item.name}">
             <div class="card-title"><h3>${item.name}</h3></div>
             <button class="btn-ver-mais">VER MAIS</button>
-        `);
+        `
+        );
         if (item.stock > 0) {
             itemDiv.querySelector(".icone").addEventListener("click", (e) => {
                 setElementValueTemporarily(e.target, "✓");
@@ -178,7 +197,7 @@ class Cardapio {
             description,
             price,
             icon,
-            stock
+            stock,
         };
         item.div = this.#createItemDiv(item);
         return item;
@@ -208,16 +227,31 @@ class Cardapio {
         this.cardapio[category]["items"].push(row);
     }
 
-    addItem(name, category, description, price, stock = 0, icon = this.#fallbackIcon) {
+    addItem(
+        name,
+        category,
+        description,
+        price,
+        stock = 0,
+        icon = this.#fallbackIcon
+    ) {
         const catKey = category.toLowerCase();
-        const item = this.#createItem(name, description, Math.max(price, 0), icon, Math.max(stock, 0));
+        const item = this.#createItem(
+            name,
+            description,
+            Math.max(price, 0),
+            icon,
+            Math.max(stock, 0)
+        );
         if (this.#hasItem(item.id)) {
             return createFunctionResponse(-14);
         }
         this.#itemsIds[item.id] = item;
-        this.#itemsIds[item.id].category = catKey
+        this.#itemsIds[item.id].category = catKey;
         if (!this.#hasCategory(catKey)) {
-            const categorySection = this.#createCategorySection(capitalize(category));
+            const categorySection = this.#createCategorySection(
+                capitalize(category)
+            );
             this.cardapio[catKey] = categorySection;
         }
 
@@ -238,7 +272,7 @@ class Cardapio {
         for (const category in this.cardapio) {
             const rows = this.cardapio[category]["items"];
             rows.forEach((row) => {
-                row.forEach(item => items.push(item));
+                row.forEach((item) => items.push(item));
             });
         }
         return items;
@@ -262,15 +296,18 @@ class Cardapio {
         const catKey = category.toLowerCase();
         if (!this.#hasCategory(catKey)) return;
         const row = this.getRow(
-            catKey, 
-            rowIndex === -1 ? this.cardapio[catKey]["items"].length - 1 : rowIndex);
+            catKey,
+            rowIndex === -1
+                ? this.cardapio[catKey]["items"].length - 1
+                : rowIndex
+        );
         const index = row.indexOf(item);
         if (index !== -1) row.splice(index, 1);
     }
 
     removeItemFromAll(item) {
         for (const catKey of Object.keys(this.cardapio)) {
-            this.cardapio[catKey]["items"].forEach(row => {
+            this.cardapio[catKey]["items"].forEach((row) => {
                 const index = row.indexOf(item);
                 if (index !== -1) row.splice(index, 1);
             });
@@ -280,7 +317,7 @@ class Cardapio {
     removeItemFromCategory(category, item) {
         const catKey = category.toLowerCase();
         if (!this.#hasCategory(catKey)) return;
-        this.cardapio[catKey]["items"].forEach(row => {
+        this.cardapio[catKey]["items"].forEach((row) => {
             const index = row.indexOf(item);
             if (index !== -1) row.splice(index, 1);
         });
@@ -289,7 +326,10 @@ class Cardapio {
     clearRow(category, rowIndex = -1) {
         const catKey = category.toLowerCase();
         if (!this.#hasCategory(catKey)) return;
-        const idx = rowIndex === -1 ? lastIndex(this.cardapio[catKey]["items"]) : rowIndex;
+        const idx =
+            rowIndex === -1
+                ? lastIndex(this.cardapio[catKey]["items"])
+                : rowIndex;
         this.cardapio[catKey]["items"][idx] = [];
     }
 
@@ -307,7 +347,7 @@ class Cardapio {
         for (const catKey of Object.keys(this.cardapio)) {
             const category = this.cardapio[catKey];
             console.log(category.name);
-            category.items.forEach(row => console.log("\t", row));
+            category.items.forEach((row) => console.log("\t", row));
         }
     }
 }
@@ -315,112 +355,655 @@ class Cardapio {
 // export default Cardapio;
 export const cardapio = new Cardapio();
 
-// Salgados
+//! Salgados
 
 cardapio.addItem(
-    "Coxinha de Frango",
+    "Croassaint de Presunto e Queijo",
     "salgados",
-    "Coxinha crocante com recheio de frango desfiado, " +
-    "temperado com ervas e especiarias. A massa dourada " +
-    "envolve um recheio cremoso e bem equilibrado, " +
-    "criando uma combinação clássica e muito saborosa.",
-    5.50,
-    1
+    "Croassaint assado recheado com presunto e queijo.",
+    7,
+    6,
+    createRootPath("img", "produtos", "salgados", "croassaint de presunto e queijo.jpeg")
 );
+
 cardapio.addItem(
-    "Kibe",
+    "Esfiha de Carne",
     "salgados",
-    "Kibe frito recheado com carne temperada, preparado com trigo hidratado, " +
-    "hortelã e especiarias tradicionais. A casquinha crocante contrasta com o " +
-    "interior macio e suculento, trazendo um sabor típico do Oriente Médio.",
-    4.50
+    "Esfiha assada recheada com carne temperada.",
+    7,
+    3,
+    createRootPath("img", "produtos", "salgados", "efiha de carne.jpeg")
 );
+
 cardapio.addItem(
-    "Risoles de Presunto e Queijo",
+    "Esfiha de Frango",
     "salgados",
-    "Risoles crocante recheado com presunto e queijo derretido, envolvido por uma massa fina " +
-    "e dourada. O recheio cremoso e salgado se destaca pelo equilíbrio entre o sabor suave do " +
-    "queijo e o toque levemente defumado do presunto.",
-    4.00
+    "Esfiha assada recheada com frango temperado.",
+    7,
+    8,
+    createRootPath("img", "produtos", "salgados", "efiha de frango.jpeg")
 );
+
 cardapio.addItem(
-    "Empada de Frango",
+    "Enrolado de Calabresa com Catupiry",
     "salgados",
-    "Empada assada com recheio de frango temperado, cremosa por dentro e envolvida por uma massa " +
-    "amanteigada que desmancha ao morder. O sabor é intenso e bem distribuído, proporcionando uma " +
-    "experiência tradicional de empada caseira.",
-    5.00,
-    8
+    "Massa assada recheada com calabresa e catupiry.",
+    7,
+    2,
+    createRootPath("img", "produtos", "salgados", "enrrolado de calabresa com catupiry.jpeg")
 );
+
 cardapio.addItem(
-    "Enroladinho de Salsicha",
+    "Enrolado de Frango com Catupiry",
     "salgados",
-    "Massa folhada recheada com salsicha, assada até dourar, resultando em camadas leves e crocantes. " +
-    "A salsicha aquecida libera seu aroma característico, " +
-    "criando um lanche simples, clássico e muito prático.",
-    3.50
+    "Massa assada recheada com frango e catupiry.",
+    7,
+    10,
+    createRootPath("img", "produtos", "salgados", "enrrolado de frango com catupiry.jpeg")
 );
+
 cardapio.addItem(
-    "Pastel de Carne",
+    "Enrolado de Presunto e Queijo",
     "salgados",
-    "Pastel crocante recheado com carne moída temperada," +
-    "preparada com cebola, alho e temperos selecionados. " +
-    "A massa fina realça o sabor do recheio suculento, trazendo o tradicional gosto de pastelaria.",
-    4.50
+    "Massa assada recheada com presunto e queijo.",
+    7,
+    4,
+    createRootPath("img", "produtos", "salgados", "enrrolado de presunto e queijo.jpeg")
 );
+
 cardapio.addItem(
-    "Esfiha de Queijo",
+    "Pão de Batata Calabresa e Cheddar",
     "salgados",
-    "Esfiha assada com recheio de queijo cremoso, equilibrado com " +
-    "temperos suaves que ressaltam o sabor do queijo. " +
-    "A massa macia e levemente dourada completa a experiência.",
-    5.00
+    "Pão de batata assado com calabresa e cheddar.",
+    7,
+    1,
+    createRootPath("img", "produtos", "salgados", "pao de batata calabresa e cheedar.jpeg")
 );
+
 cardapio.addItem(
-    "Bolinha de Queijo",
+    "Pão de Batata com Requeijão",
     "salgados",
-    "Bolinha frita recheada com queijo derretido, envolvida por uma " +
-    "casquinha crocante que contrasta com o interior " +
-    "elástico e cremoso. Um clássico irresistível para quem gosta de queijo.",
-    4.00,
-    4
+    "Pão de batata assado recheado com requeijão.",
+    7,
+    9,
+    createRootPath("img", "produtos", "salgados", "pao de batata com requeijao.jpeg")
 );
-// DOCES
+
 cardapio.addItem(
-    "Bombom",
+    "Pão de Queijo",
+    "salgados",
+    "Pão de queijo tradicional assado.",
+    7,
+    5,
+    createRootPath("img", "produtos", "salgados", "pao de queijo.jpeg")
+);
+
+
+//! Petiscos
+
+cardapio.addItem(
+    "Batata Ondulada Lobits",
+    "petiscos",
+    "Batata ondulada crocante, produzida pela Milho de Ouro sob a marca Lobits.",
+    4.5,
+    15,
+    createRootPath("img", "produtos", "petiscos", "batata-ondulada.jpg")
+);
+
+cardapio.addItem(
+    "Lobits Queijo",
+    "petiscos",
+    "Salgadinho de milho sabor queijo, assado, sequinho e crocante.",
+    3.7,
+    12,
+    createRootPath("img", "produtos", "petiscos", "lobits-azul.jpg")
+);
+
+cardapio.addItem(
+    "Lobits Requeijão",
+    "petiscos",
+    "Salgadinho de milho sabor requeijão, assado e cremoso no tempero.",
+    4.9,
+    10,
+    createRootPath("img", "produtos", "petiscos", "lobits-roxo.jpg")
+);
+
+cardapio.addItem(
+    "Lobits Presunto",
+    "petiscos",
+    "Salgadinho de milho sabor presunto, assado e com tempero equilibrado.",
+    3.7,
+    8,
+    createRootPath("img", "produtos", "petiscos", "lobits-verde.jpg")
+);
+
+cardapio.addItem(
+    "Torcida Queijo",
+    "petiscos",
+    "Salgadinho de batata sabor queijo, da linha Torcida (PepsiCo).",
+    4.2,
+    14,
+    createRootPath("img", "produtos", "petiscos", "torcida-amarelo.jpg")
+);
+
+cardapio.addItem(
+    "Torcida Cebola",
+    "petiscos",
+    "Salgadinho de batata sabor cebola, da linha Torcida (PepsiCo).",
+    4.2,
+    11,
+    createRootPath("img", "produtos", "petiscos", "torcida-roxo.jpg")
+);
+
+cardapio.addItem(
+    "Torcida Churrasco",
+    "petiscos",
+    "Salgadinho de batata sabor churrasco, da linha Torcida (PepsiCo).",
+    4.2,
+    13,
+    createRootPath("img", "produtos", "petiscos", "torcida-verde.jpg")
+);
+
+
+//! DOCES
+
+cardapio.addItem(
+    "Bis Xtra",
     "doces",
-    "Uma bola de chocolate quente, com textura cremosa e sabor intenso. " +
-    "O interior derrete levemente ao ser mordido, " +
-    "liberando um aroma marcante de cacau e proporcionando uma doçura equilibrada.",
-    4.00,
-    4
+    "Unidade de Bis Xtra, waffer coberto com chocolate ao leite extra crocante.",
+    1.0,
+    12,
+    createRootPath("img", "produtos", "doces", "bis-xtra.jpg")
 );
+
 cardapio.addItem(
-    "Brigadeiro",
+    "Bombom Dourado",
     "doces",
-    "Doce tradicional feito com chocolate cremoso e textura macia, enrolado " +
-    "em pequenas porções e coberto com granulados que trazem o contraste " +
-    "perfeito entre suavidade e crocância.",
-    3.00,
-    12
+    "Bombom tipo Sonho de Valsa, recheio cremoso com cobertura de chocolate.",
+    1.5,
+    14,
+    createRootPath("img", "produtos", "doces", "bombom-dourado.jpg")
 );
+
 cardapio.addItem(
-    "Quindim",
+    "Bombom Rosa",
     "doces",
-    "Sobremesa clássica de origem brasileira, preparada com gema, açúcar e " +
-    "coco ralado, resultando em uma textura brilhante, macia e extremamente " +
-    "saborosa, com aroma característico.",
-    4.50,
-    6
+    "Bombom tipo Ouro Branco, recheio cremoso com cobertura branca.",
+    1.5,
+    14,
+    createRootPath("img", "produtos", "doces", "bombom-rosa.jpg")
 );
+
 cardapio.addItem(
-    "Pudim de Leite",
+    "Chokito",
     "doces",
-    "Pudim cremoso feito com leite condensado, leite e ovos, " +
-    "coberto por uma calda de caramelo suave e brilhante. " +
-    "A textura lisa e delicada proporciona um sabor marcante e equilibrado.",
-    5.00,
-    5
+    "Chocolate Chokito 32g, leite condensado caramelizado com flocos crocantes.",
+    4.5,
+    12,
+    createRootPath("img", "produtos", "doces", "chokito.jpg")
 );
+
+cardapio.addItem(
+    "Diamante Negro",
+    "doces",
+    "Barra individual de Diamante Negro (Lacta), chocolate intenso e crocante.",
+    4.0,
+    11,
+    createRootPath("img", "produtos", "doces", "diamante-negro.jpg")
+);
+
+cardapio.addItem(
+    "Fruit-Tella",
+    "doces",
+    "Bala macia Fruit-Tella com sabores variados de frutas.",
+    0.5,
+    20,
+    createRootPath("img", "produtos", "doces", "fruit-tella.jpg")
+);
+
+cardapio.addItem(
+    "Halls Mentol",
+    "doces",
+    "Bala Halls sabor mentol, refrescância forte.",
+    0.5,
+    20,
+    createRootPath("img", "produtos", "doces", "halls-mentol.jpg")
+);
+
+cardapio.addItem(
+    "Halls Morango",
+    "doces",
+    "Bala Halls sabor morango, doce e refrescante.",
+    0.5,
+    20,
+    createRootPath("img", "produtos", "doces", "halls-morango.jpg")
+);
+
+cardapio.addItem(
+    "Jujuba",
+    "doces",
+    "Jujuba unitária, sabor sortido de frutas.",
+    0.25,
+    20,
+    createRootPath("img", "produtos", "doces", "jujuba.jpg")
+);
+
+cardapio.addItem(
+    "Mentos",
+    "doces",
+    "Pastilha Mentos, sabor variado e textura macia.",
+    0.5,
+    18,
+    createRootPath("img", "produtos", "doces", "mentos.jpg")
+);
+
+cardapio.addItem(
+    "Paçoca Amor",
+    "doces",
+    "Paçoca Amor tradicional feita com amendoim.",
+    1.0,
+    20,
+    createRootPath("img", "produtos", "doces", "pacoca-amor.jpg")
+);
+
+cardapio.addItem(
+    "Prestígio",
+    "doces",
+    "Chocolate Prestígio pequeno, recheado com coco.",
+    2.0,
+    15,
+    createRootPath("img", "produtos", "doces", "prestigio.jpg")
+);
+
+cardapio.addItem(
+    "Tortuguita",
+    "doces",
+    "Chocolate Tortuguita ao leite, formato de tartaruga.",
+    2.0,
+    18,
+    createRootPath("img", "produtos", "doces", "tortuguita.jpg")
+);
+
+cardapio.addItem(
+    "Trident Menta",
+    "doces",
+    "Chiclete Trident sabor menta, refrescante.",
+    0.5,
+    15,
+    createRootPath("img", "produtos", "doces", "trident-menta.jpg")
+);
+
+cardapio.addItem(
+    "Trident Morango",
+    "doces",
+    "Chiclete Trident sabor morango, doce e frutado.",
+    0.5,
+    15,
+    createRootPath("img", "produtos", "doces", "trident-morango.jpg")
+);
+
+cardapio.addItem(
+    "Trident Tutti-Frutti",
+    "doces",
+    "Chiclete Trident sabor tutti-frutti, frutas misturadas.",
+    0.5,
+    15,
+    createRootPath("img", "produtos", "doces", "trident-tutti-frutti.jpg")
+);
+
+
+//! BEBIDAS
+
+cardapio.addItem(
+    "Água sem gás 500 ml",
+    "bebidas",
+    "Água mineral sem gás, garrafa individual",
+    3.0,
+    12,
+    createRootPath("img", "produtos", "bebidas", "agua-sem-gas.jpg")
+);
+
+cardapio.addItem(
+    "Chá Ice Tea Pêssego 300 ml",
+    "bebidas",
+    "Chá gelado sabor pêssego",
+    4.5,
+    10,
+    createRootPath("img", "produtos", "bebidas", "cha-ice-tea.jpg")
+);
+
+cardapio.addItem(
+    "Chá de Lichia 300 ml",
+    "bebidas",
+    "Chá gelado sabor lichia",
+    5.0,
+    0,
+    createRootPath("img", "produtos", "bebidas", "cha-lichia.jpg")
+);
+
+cardapio.addItem(
+    "Chá Mate Original 300 ml",
+    "bebidas",
+    "Chá mate tradicional gelado",
+    4.5,
+    7,
+    createRootPath("img", "produtos", "bebidas", "cha-mate-original.jpg")
+);
+
+
+cardapio.addItem(
+    "Coca-Cola 2 L",
+    "bebidas",
+    "Refrigerante Coca-Cola garrafa grande",
+    10.0,
+    11,
+    createRootPath("img", "produtos", "bebidas", "cocacola-2l.jpg")
+);
+
+cardapio.addItem(
+    "Coca-Cola 350 ml",
+    "bebidas",
+    "Refrigerante Coca-Cola lata",
+    4.5,
+    14,
+    createRootPath("img", "produtos", "bebidas", "cocacola-350ml.jpg")
+);
+
+cardapio.addItem(
+    "Coca-Cola Café 250 ml",
+    "bebidas",
+    "Coca-Cola com café, lata pequena",
+    5.5,
+    0,
+    createRootPath("img", "produtos", "bebidas", "cocacola-cafe.jpg")
+);
+
+cardapio.addItem(
+    "Coca-Cola Garrafinha 600 ml",
+    "bebidas",
+    "Coca-Cola PET individual",
+    6.0,
+    15,
+    createRootPath("img", "produtos", "bebidas", "cocacola-garrafinha.jpg")
+);
+
+cardapio.addItem(
+    "Coca-Cola Mini 200 ml",
+    "bebidas",
+    "Refrigerante Coca-Cola mini-lata",
+    3.5,
+    5,
+    createRootPath("img", "produtos", "bebidas", "cocacola-mini.jpg")
+);
+
+
+cardapio.addItem(
+    "Coca-Cola Zero 2 L",
+    "bebidas",
+    "Versão zero açúcar, garrafa grande",
+    10.0,
+    13,
+    createRootPath("img", "produtos", "bebidas", "cocacola-zero-2l.jpg")
+);
+
+cardapio.addItem(
+    "Coca-Cola Zero Garrafinha 600 ml",
+    "bebidas",
+    "Coca-Cola Zero PET",
+    6.0,
+    12,
+    createRootPath("img", "produtos", "bebidas", "cocacola-zero-garrafinha.jpg")
+);
+
+cardapio.addItem(
+    "Coca-Cola Zero 350 ml",
+    "bebidas",
+    "Coca-Cola Zero lata",
+    4.5,
+    16,
+    createRootPath("img", "produtos", "bebidas", "cocacola-zero-menor.jpg")
+);
+
+cardapio.addItem(
+    "Coca-Cola Zero Mini 200 ml",
+    "bebidas",
+    "Coca-Cola Zero mini-lata",
+    3.5,
+    7,
+    createRootPath("img", "produtos", "bebidas", "cocacola-zero-mini.jpg")
+);
+
+
+cardapio.addItem(
+    "Del Valle Maracujá 290 ml",
+    "bebidas",
+    "Suco Del Valle sabor maracujá lata",
+    5.5,
+    8,
+    createRootPath("img", "produtos", "bebidas", "del-vale-maracuja-lata.jpg")
+);
+
+cardapio.addItem(
+    "Del Valle Goiaba 290 ml",
+    "bebidas",
+    "Suco Del Valle sabor goiaba lata",
+    5.5,
+    6,
+    createRootPath("img", "produtos", "bebidas", "del-valle-goiaba-lata.jpg")
+);
+
+cardapio.addItem(
+    "Del Valle Laranja 1 L",
+    "bebidas",
+    "Suco Del Valle sabor laranja",
+    7.0,
+    10,
+    createRootPath("img", "produtos", "bebidas", "del-valle-laranja.jpg")
+);
+
+cardapio.addItem(
+    "Del Valle Lata 290 ml",
+    "bebidas",
+    "Suco Del Valle diversos sabores lata",
+    5.5,
+    9,
+    createRootPath("img", "produtos", "bebidas", "del-valle-lata.jpg")
+);
+
+cardapio.addItem(
+    "Del Valle Manga 1 L",
+    "bebidas",
+    "Suco Del Valle sabor manga",
+    7.0,
+    11,
+    createRootPath("img", "produtos", "bebidas", "del-valle-manga.jpg")
+);
+
+cardapio.addItem(
+    "Del Valle Uva 1 L",
+    "bebidas",
+    "Suco Del Valle sabor uva",
+    7.0,
+    8,
+    createRootPath("img", "produtos", "bebidas", "del-valle-uva-maior.jpg")
+);
+
+
+cardapio.addItem(
+    "Fanta Guaraná 350 ml",
+    "bebidas",
+    "Refrigerante Fanta Guaraná lata",
+    4.5,
+    14,
+    createRootPath("img", "produtos", "bebidas", "fanta-guarana.jpg")
+);
+
+cardapio.addItem(
+    "Fanta Laranja 350 ml",
+    "bebidas",
+    "Fanta Laranja lata",
+    4.5,
+    13,
+    createRootPath("img", "produtos", "bebidas", "fanta-laranja-lata.jpg")
+);
+
+cardapio.addItem(
+    "Fanta Mini 200 ml",
+    "bebidas",
+    "Fanta mini-lata",
+    3.5,
+    6,
+    createRootPath("img", "produtos", "bebidas", "fanta-mini.jpg")
+);
+
+cardapio.addItem(
+    "Fanta Uva 2 L",
+    "bebidas",
+    "Refrigerante Fanta Uva garrafa grande",
+    10.0,
+    10,
+    createRootPath("img", "produtos", "bebidas", "fanta-uva-2-litros-1.jpg")
+);
+
+cardapio.addItem(
+    "Fanta Uva 350 ml",
+    "bebidas",
+    "Fanta Uva lata",
+    4.5,
+    15,
+    createRootPath("img", "produtos", "bebidas", "fanta-uva-lata.jpg")
+);
+
+cardapio.addItem(
+    "Fanta Uva Mini 200 ml",
+    "bebidas",
+    "Fanta Uva mini-lata",
+    3.5,
+    7,
+    createRootPath("img", "produtos", "bebidas", "fanta-uva-mini.jpg")
+);
+
+
+cardapio.addItem(
+    "Guaraná 350 ml",
+    "bebidas",
+    "Guaraná Antarctica lata",
+    4.5,
+    12,
+    createRootPath("img", "produtos", "bebidas", "guarana-lata.jpg")
+);
+
+cardapio.addItem(
+    "Guaraná Zero 350 ml",
+    "bebidas",
+    "Guaraná Antarctica Zero lata",
+    4.5,
+    10,
+    createRootPath("img", "produtos", "bebidas", "guarana-zero-350ml.jpg")
+);
+
+
+cardapio.addItem(
+    "Kapo Maracujá 200 ml",
+    "bebidas",
+    "Suco Kapo sabor maracujá",
+    2.5,
+    9,
+    createRootPath("img", "produtos", "bebidas", "kapo-maracuja.jpg")
+);
+
+cardapio.addItem(
+    "Kapo Morango 200 ml",
+    "bebidas",
+    "Suco Kapo sabor morango",
+    2.5,
+    11,
+    createRootPath("img", "produtos", "bebidas", "kapo-morango.jpg")
+);
+
+cardapio.addItem(
+    "Kapo Uva 200 ml",
+    "bebidas",
+    "Suco Kapo sabor uva",
+    2.5,
+    10,
+    createRootPath("img", "produtos", "bebidas", "kapo-uva.jpg")
+);
+
+
+cardapio.addItem(
+    "Pirakids 200 ml",
+    "bebidas",
+    "Bebida láctea Pirakids diversos sabores",
+    3.0,
+    8,
+    createRootPath("img", "produtos", "bebidas", "pirakids.jpg")
+);
+
+
+cardapio.addItem(
+    "Schweppes Citrus 350 ml",
+    "bebidas",
+    "Schweppes Citrus lata",
+    5.0,
+    7,
+    createRootPath("img", "produtos", "bebidas", "schweppers-lata.jpg")
+);
+
+cardapio.addItem(
+    "Schweppes Tônica Zero 350 ml",
+    "bebidas",
+    "Água tônica zero açúcar",
+    5.0,
+    6,
+    createRootPath("img", "produtos", "bebidas", "schweppers-tonico-zero.jpg")
+);
+
+
+cardapio.addItem(
+    "Sprite 350 ml",
+    "bebidas",
+    "Sprite lata",
+    4.5,
+    14,
+    createRootPath("img", "produtos", "bebidas", "sprite 350ml.jpg")
+);
+
+cardapio.addItem(
+    "Sprite 2 L",
+    "bebidas",
+    "Sprite garrafa grande",
+    10.0,
+    10,
+    createRootPath("img", "produtos", "bebidas", "sprite-2l.jpg")
+);
+
+cardapio.addItem(
+    "Sprite Fresh 500 ml",
+    "bebidas",
+    "Sprite Fresh PET",
+    5.5,
+    9,
+    createRootPath("img", "produtos", "bebidas", "sprite-fresh.jpg")
+);
+
+cardapio.addItem(
+    "Sprite Garrafa 600 ml",
+    "bebidas",
+    "Sprite PET individual",
+    6.0,
+    12,
+    createRootPath("img", "produtos", "bebidas", "sprite-garrafa.jpg")
+);
+
+cardapio.addItem(
+    "Sprite Zero 2 L",
+    "bebidas",
+    "Sprite Zero garrafa grande",
+    10.0,
+    11,
+    createRootPath("img", "produtos", "bebidas", "sprite-zero-2l.jpg")
+);
+
 
 cardapio.renderCardapio();

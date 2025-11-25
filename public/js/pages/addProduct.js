@@ -242,7 +242,6 @@ formAddProduct.addEventListener("submit", async (e) => {
         return;
     }
     setValueP();
-    console.log("Salvando imagem")
     saveImage(db, id, productData.icon);
     productData.icon = getImageURL(db, id);
     console.log(productData.icon);
