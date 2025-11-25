@@ -138,7 +138,7 @@ class Cardapio {
                             ).textContent = item.name;
                             document.querySelector(
                                 "#product-icon"
-                            ).textContent = item.icon;
+                            ).src = item.icon;
                             document.querySelector(
                                 "#product-stock"
                             ).textContent = formatStock(item.stock);
@@ -177,7 +177,7 @@ class Cardapio {
             <span class="icone">${
                 item.stock > 0 ? "+" : `<img src="${this.#offStockIcon}">`
             }</span>
-            <img class="product-image" src="${item.icon || this.#fallbackIcon}" alt="${item.name}">
+            <img class="product-image" src="${item.icon}" alt="${item.name}">
             <div class="card-title"><h3>${item.name}</h3></div>
             <button class="btn-ver-mais">VER MAIS</button>
         `
@@ -363,7 +363,7 @@ cardapio.addItem(
     "Croassaint assado recheado com presunto e queijo.",
     7,
     6,
-    createRootPath("img", "produtos", "salgados", "croassaint de presunto e queijo.jpeg")
+    createRootPath("img", "croassaint de presunto e queijo.jpeg")
 );
 
 cardapio.addItem(
@@ -372,7 +372,7 @@ cardapio.addItem(
     "Esfiha assada recheada com carne temperada.",
     7,
     3,
-    createRootPath("img", "produtos", "salgados", "efiha de carne.jpeg")
+    createRootPath("img", "efiha de carne.jpeg")
 );
 
 cardapio.addItem(
@@ -381,7 +381,7 @@ cardapio.addItem(
     "Esfiha assada recheada com frango temperado.",
     7,
     8,
-    createRootPath("img", "produtos", "salgados", "efiha de frango.jpeg")
+    createRootPath("img", "efiha de frango.jpeg")
 );
 
 cardapio.addItem(
@@ -390,7 +390,7 @@ cardapio.addItem(
     "Massa assada recheada com calabresa e catupiry.",
     7,
     2,
-    createRootPath("img", "produtos", "salgados", "enrrolado de calabresa com catupiry.jpeg")
+    createRootPath("img", "enrrolado de calabresa com catupiry.jpeg")
 );
 
 cardapio.addItem(
@@ -399,7 +399,7 @@ cardapio.addItem(
     "Massa assada recheada com frango e catupiry.",
     7,
     10,
-    createRootPath("img", "produtos", "salgados", "enrrolado de frango com catupiry.jpeg")
+    createRootPath("img", "enrrolado de frango com catupiry.jpeg")
 );
 
 cardapio.addItem(
@@ -408,7 +408,7 @@ cardapio.addItem(
     "Massa assada recheada com presunto e queijo.",
     7,
     4,
-    createRootPath("img", "produtos", "salgados", "enrrolado de presunto e queijo.jpeg")
+    createRootPath("img", "enrrolado de presunto e queijo.jpeg")
 );
 
 cardapio.addItem(
@@ -417,7 +417,7 @@ cardapio.addItem(
     "Pão de batata assado com calabresa e cheddar.",
     7,
     1,
-    createRootPath("img", "produtos", "salgados", "pao de batata calabresa e cheedar.jpeg")
+    createRootPath("img", "pao de batata calabresa e cheedar.jpeg")
 );
 
 cardapio.addItem(
@@ -426,7 +426,7 @@ cardapio.addItem(
     "Pão de batata assado recheado com requeijão.",
     7,
     9,
-    createRootPath("img", "produtos", "salgados", "pao de batata com requeijao.jpeg")
+    createRootPath("img", "pao de batata com requeijao.jpeg")
 );
 
 cardapio.addItem(
@@ -435,7 +435,7 @@ cardapio.addItem(
     "Pão de queijo tradicional assado.",
     7,
     5,
-    createRootPath("img", "produtos", "salgados", "pao de queijo.jpeg")
+    createRootPath("img", "pao de queijo.jpeg")
 );
 
 
@@ -447,7 +447,7 @@ cardapio.addItem(
     "Batata ondulada crocante, produzida pela Milho de Ouro sob a marca Lobits.",
     4.5,
     15,
-    createRootPath("img", "produtos", "petiscos", "batata-ondulada.jpg")
+    createRootPath("img", "batata-ondulada.jpg")
 );
 
 cardapio.addItem(
@@ -456,7 +456,7 @@ cardapio.addItem(
     "Salgadinho de milho sabor queijo, assado, sequinho e crocante.",
     3.7,
     12,
-    createRootPath("img", "produtos", "petiscos", "lobits-azul.jpg")
+    createRootPath("img", "lobits-azul.jpg")
 );
 
 cardapio.addItem(
@@ -465,7 +465,7 @@ cardapio.addItem(
     "Salgadinho de milho sabor requeijão, assado e cremoso no tempero.",
     4.9,
     10,
-    createRootPath("img", "produtos", "petiscos", "lobits-roxo.jpg")
+    createRootPath("img", "lobits-roxo.jpg")
 );
 
 cardapio.addItem(
@@ -474,7 +474,7 @@ cardapio.addItem(
     "Salgadinho de milho sabor presunto, assado e com tempero equilibrado.",
     3.7,
     8,
-    createRootPath("img", "produtos", "petiscos", "lobits-verde.jpg")
+    createRootPath("img", "lobits-verde.jpg")
 );
 
 cardapio.addItem(
@@ -483,7 +483,7 @@ cardapio.addItem(
     "Salgadinho de batata sabor queijo, da linha Torcida (PepsiCo).",
     4.2,
     14,
-    createRootPath("img", "produtos", "petiscos", "torcida-amarelo.jpg")
+    createRootPath("img", "torcida-amarelo.jpg")
 );
 
 cardapio.addItem(
@@ -492,7 +492,7 @@ cardapio.addItem(
     "Salgadinho de batata sabor cebola, da linha Torcida (PepsiCo).",
     4.2,
     11,
-    createRootPath("img", "produtos", "petiscos", "torcida-roxo.jpg")
+    createRootPath("img", "torcida-roxo.jpg")
 );
 
 cardapio.addItem(
@@ -501,11 +501,12 @@ cardapio.addItem(
     "Salgadinho de batata sabor churrasco, da linha Torcida (PepsiCo).",
     4.2,
     13,
-    createRootPath("img", "produtos", "petiscos", "torcida-verde.jpg")
+    createRootPath("img", "torcida-verde.jpg")
 );
 
-
-//! DOCES
+///////////////////////////////////////////////////////////////
+// DOCES
+///////////////////////////////////////////////////////////////
 
 cardapio.addItem(
     "Bis Xtra",
@@ -513,7 +514,7 @@ cardapio.addItem(
     "Unidade de Bis Xtra, waffer coberto com chocolate ao leite extra crocante.",
     1.0,
     12,
-    createRootPath("img", "produtos", "doces", "bis-xtra.jpg")
+    createRootPath("img", "bis-xtra.jpg")
 );
 
 cardapio.addItem(
@@ -522,7 +523,7 @@ cardapio.addItem(
     "Bombom tipo Sonho de Valsa, recheio cremoso com cobertura de chocolate.",
     1.5,
     14,
-    createRootPath("img", "produtos", "doces", "bombom-dourado.jpg")
+    createRootPath("img", "bombom-dourado.jpg")
 );
 
 cardapio.addItem(
@@ -531,7 +532,7 @@ cardapio.addItem(
     "Bombom tipo Ouro Branco, recheio cremoso com cobertura branca.",
     1.5,
     14,
-    createRootPath("img", "produtos", "doces", "bombom-rosa.jpg")
+    createRootPath("img", "bombom-rosa.jpg")
 );
 
 cardapio.addItem(
@@ -540,7 +541,7 @@ cardapio.addItem(
     "Chocolate Chokito 32g, leite condensado caramelizado com flocos crocantes.",
     4.5,
     12,
-    createRootPath("img", "produtos", "doces", "chokito.jpg")
+    createRootPath("img", "chokito.jpg")
 );
 
 cardapio.addItem(
@@ -549,7 +550,7 @@ cardapio.addItem(
     "Barra individual de Diamante Negro (Lacta), chocolate intenso e crocante.",
     4.0,
     11,
-    createRootPath("img", "produtos", "doces", "diamante-negro.jpg")
+    createRootPath("img", "diamante-negro.jpg")
 );
 
 cardapio.addItem(
@@ -558,7 +559,7 @@ cardapio.addItem(
     "Bala macia Fruit-Tella com sabores variados de frutas.",
     0.5,
     20,
-    createRootPath("img", "produtos", "doces", "fruit-tella.jpg")
+    createRootPath("img", "fruit-tella.jpg")
 );
 
 cardapio.addItem(
@@ -567,7 +568,7 @@ cardapio.addItem(
     "Bala Halls sabor mentol, refrescância forte.",
     0.5,
     20,
-    createRootPath("img", "produtos", "doces", "halls-mentol.jpg")
+    createRootPath("img", "halls-mentol.jpg")
 );
 
 cardapio.addItem(
@@ -576,7 +577,7 @@ cardapio.addItem(
     "Bala Halls sabor morango, doce e refrescante.",
     0.5,
     20,
-    createRootPath("img", "produtos", "doces", "halls-morango.jpg")
+    createRootPath("img", "halls-morango.jpg")
 );
 
 cardapio.addItem(
@@ -585,7 +586,7 @@ cardapio.addItem(
     "Jujuba unitária, sabor sortido de frutas.",
     0.25,
     20,
-    createRootPath("img", "produtos", "doces", "jujuba.jpg")
+    createRootPath("img", "jujuba.jpg")
 );
 
 cardapio.addItem(
@@ -594,7 +595,7 @@ cardapio.addItem(
     "Pastilha Mentos, sabor variado e textura macia.",
     0.5,
     18,
-    createRootPath("img", "produtos", "doces", "mentos.jpg")
+    createRootPath("img", "mentos.jpg")
 );
 
 cardapio.addItem(
@@ -603,7 +604,7 @@ cardapio.addItem(
     "Paçoca Amor tradicional feita com amendoim.",
     1.0,
     20,
-    createRootPath("img", "produtos", "doces", "pacoca-amor.jpg")
+    createRootPath("img", "pacoca-amor.jpg")
 );
 
 cardapio.addItem(
@@ -612,7 +613,7 @@ cardapio.addItem(
     "Chocolate Prestígio pequeno, recheado com coco.",
     2.0,
     15,
-    createRootPath("img", "produtos", "doces", "prestigio.jpg")
+    createRootPath("img", "prestigio.jpg")
 );
 
 cardapio.addItem(
@@ -621,7 +622,7 @@ cardapio.addItem(
     "Chocolate Tortuguita ao leite, formato de tartaruga.",
     2.0,
     18,
-    createRootPath("img", "produtos", "doces", "tortuguita.jpg")
+    createRootPath("img", "tortuguita.jpg")
 );
 
 cardapio.addItem(
@@ -630,7 +631,7 @@ cardapio.addItem(
     "Chiclete Trident sabor menta, refrescante.",
     0.5,
     15,
-    createRootPath("img", "produtos", "doces", "trident-menta.jpg")
+    createRootPath("img", "trident-menta.jpg")
 );
 
 cardapio.addItem(
@@ -639,7 +640,7 @@ cardapio.addItem(
     "Chiclete Trident sabor morango, doce e frutado.",
     0.5,
     15,
-    createRootPath("img", "produtos", "doces", "trident-morango.jpg")
+    createRootPath("img", "trident-morango.jpg")
 );
 
 cardapio.addItem(
@@ -648,11 +649,12 @@ cardapio.addItem(
     "Chiclete Trident sabor tutti-frutti, frutas misturadas.",
     0.5,
     15,
-    createRootPath("img", "produtos", "doces", "trident-tutti-frutti.jpg")
+    createRootPath("img", "trident-tutti-frutti.jpg")
 );
 
-
-//! BEBIDAS
+///////////////////////////////////////////////////////////////
+// BEBIDAS
+///////////////////////////////////////////////////////////////
 
 cardapio.addItem(
     "Água sem gás 500 ml",
@@ -660,7 +662,7 @@ cardapio.addItem(
     "Água mineral sem gás, garrafa individual",
     3.0,
     12,
-    createRootPath("img", "produtos", "bebidas", "agua-sem-gas.jpg")
+    createRootPath("img", "agua-sem-gas.jpg")
 );
 
 cardapio.addItem(
@@ -669,7 +671,7 @@ cardapio.addItem(
     "Chá gelado sabor pêssego",
     4.5,
     10,
-    createRootPath("img", "produtos", "bebidas", "cha-ice-tea.jpg")
+    createRootPath("img", "cha-ice-tea.jpg")
 );
 
 cardapio.addItem(
@@ -678,7 +680,7 @@ cardapio.addItem(
     "Chá gelado sabor lichia",
     5.0,
     0,
-    createRootPath("img", "produtos", "bebidas", "cha-lichia.jpg")
+    createRootPath("img", "cha-lichia.jpg")
 );
 
 cardapio.addItem(
@@ -687,9 +689,8 @@ cardapio.addItem(
     "Chá mate tradicional gelado",
     4.5,
     7,
-    createRootPath("img", "produtos", "bebidas", "cha-mate-original.jpg")
+    createRootPath("img", "cha-mate-original.jpg")
 );
-
 
 cardapio.addItem(
     "Coca-Cola 2 L",
@@ -697,7 +698,7 @@ cardapio.addItem(
     "Refrigerante Coca-Cola garrafa grande",
     10.0,
     11,
-    createRootPath("img", "produtos", "bebidas", "cocacola-2l.jpg")
+    createRootPath("img", "cocacola-2l.jpg")
 );
 
 cardapio.addItem(
@@ -706,7 +707,7 @@ cardapio.addItem(
     "Refrigerante Coca-Cola lata",
     4.5,
     14,
-    createRootPath("img", "produtos", "bebidas", "cocacola-350ml.jpg")
+    createRootPath("img", "cocacola-350ml.jpg")
 );
 
 cardapio.addItem(
@@ -715,7 +716,7 @@ cardapio.addItem(
     "Coca-Cola com café, lata pequena",
     5.5,
     0,
-    createRootPath("img", "produtos", "bebidas", "cocacola-cafe.jpg")
+    createRootPath("img", "cocacola-cafe.jpg")
 );
 
 cardapio.addItem(
@@ -724,7 +725,7 @@ cardapio.addItem(
     "Coca-Cola PET individual",
     6.0,
     15,
-    createRootPath("img", "produtos", "bebidas", "cocacola-garrafinha.jpg")
+    createRootPath("img", "cocacola-garrafinha.jpg")
 );
 
 cardapio.addItem(
@@ -733,9 +734,8 @@ cardapio.addItem(
     "Refrigerante Coca-Cola mini-lata",
     3.5,
     5,
-    createRootPath("img", "produtos", "bebidas", "cocacola-mini.jpg")
+    createRootPath("img", "cocacola-mini.jpg")
 );
-
 
 cardapio.addItem(
     "Coca-Cola Zero 2 L",
@@ -743,7 +743,7 @@ cardapio.addItem(
     "Versão zero açúcar, garrafa grande",
     10.0,
     13,
-    createRootPath("img", "produtos", "bebidas", "cocacola-zero-2l.jpg")
+    createRootPath("img", "cocacola-zero-2l.jpg")
 );
 
 cardapio.addItem(
@@ -752,7 +752,7 @@ cardapio.addItem(
     "Coca-Cola Zero PET",
     6.0,
     12,
-    createRootPath("img", "produtos", "bebidas", "cocacola-zero-garrafinha.jpg")
+    createRootPath("img", "cocacola-zero-garrafinha.jpg")
 );
 
 cardapio.addItem(
@@ -761,7 +761,7 @@ cardapio.addItem(
     "Coca-Cola Zero lata",
     4.5,
     16,
-    createRootPath("img", "produtos", "bebidas", "cocacola-zero-menor.jpg")
+    createRootPath("img", "cocacola-zero-menor.jpg")
 );
 
 cardapio.addItem(
@@ -770,9 +770,8 @@ cardapio.addItem(
     "Coca-Cola Zero mini-lata",
     3.5,
     7,
-    createRootPath("img", "produtos", "bebidas", "cocacola-zero-mini.jpg")
+    createRootPath("img", "cocacola-zero-mini.jpg")
 );
-
 
 cardapio.addItem(
     "Del Valle Maracujá 290 ml",
@@ -780,7 +779,7 @@ cardapio.addItem(
     "Suco Del Valle sabor maracujá lata",
     5.5,
     8,
-    createRootPath("img", "produtos", "bebidas", "del-vale-maracuja-lata.jpg")
+    createRootPath("img", "del-vale-maracuja-lata.jpg")
 );
 
 cardapio.addItem(
@@ -789,7 +788,7 @@ cardapio.addItem(
     "Suco Del Valle sabor goiaba lata",
     5.5,
     6,
-    createRootPath("img", "produtos", "bebidas", "del-valle-goiaba-lata.jpg")
+    createRootPath("img", "del-valle-goiaba-lata.jpg")
 );
 
 cardapio.addItem(
@@ -798,7 +797,7 @@ cardapio.addItem(
     "Suco Del Valle sabor laranja",
     7.0,
     10,
-    createRootPath("img", "produtos", "bebidas", "del-valle-laranja.jpg")
+    createRootPath("img", "del-valle-laranja.jpg")
 );
 
 cardapio.addItem(
@@ -807,7 +806,7 @@ cardapio.addItem(
     "Suco Del Valle diversos sabores lata",
     5.5,
     9,
-    createRootPath("img", "produtos", "bebidas", "del-valle-lata.jpg")
+    createRootPath("img", "del-valle-lata.jpg")
 );
 
 cardapio.addItem(
@@ -816,7 +815,7 @@ cardapio.addItem(
     "Suco Del Valle sabor manga",
     7.0,
     11,
-    createRootPath("img", "produtos", "bebidas", "del-valle-manga.jpg")
+    createRootPath("img", "del-valle-manga.jpg")
 );
 
 cardapio.addItem(
@@ -825,9 +824,8 @@ cardapio.addItem(
     "Suco Del Valle sabor uva",
     7.0,
     8,
-    createRootPath("img", "produtos", "bebidas", "del-valle-uva-maior.jpg")
+    createRootPath("img", "del-valle-uva-maior.jpg")
 );
-
 
 cardapio.addItem(
     "Fanta Guaraná 350 ml",
@@ -835,7 +833,7 @@ cardapio.addItem(
     "Refrigerante Fanta Guaraná lata",
     4.5,
     14,
-    createRootPath("img", "produtos", "bebidas", "fanta-guarana.jpg")
+    createRootPath("img", "fanta-guarana.jpg")
 );
 
 cardapio.addItem(
@@ -844,7 +842,7 @@ cardapio.addItem(
     "Fanta Laranja lata",
     4.5,
     13,
-    createRootPath("img", "produtos", "bebidas", "fanta-laranja-lata.jpg")
+    createRootPath("img", "fanta-laranja-lata.jpg")
 );
 
 cardapio.addItem(
@@ -853,7 +851,7 @@ cardapio.addItem(
     "Fanta mini-lata",
     3.5,
     6,
-    createRootPath("img", "produtos", "bebidas", "fanta-mini.jpg")
+    createRootPath("img", "fanta-mini.jpg")
 );
 
 cardapio.addItem(
@@ -862,7 +860,7 @@ cardapio.addItem(
     "Refrigerante Fanta Uva garrafa grande",
     10.0,
     10,
-    createRootPath("img", "produtos", "bebidas", "fanta-uva-2-litros-1.jpg")
+    createRootPath("img", "fanta-uva-2-litros-1.jpg")
 );
 
 cardapio.addItem(
@@ -871,7 +869,7 @@ cardapio.addItem(
     "Fanta Uva lata",
     4.5,
     15,
-    createRootPath("img", "produtos", "bebidas", "fanta-uva-lata.jpg")
+    createRootPath("img", "fanta-uva-lata.jpg")
 );
 
 cardapio.addItem(
@@ -880,9 +878,8 @@ cardapio.addItem(
     "Fanta Uva mini-lata",
     3.5,
     7,
-    createRootPath("img", "produtos", "bebidas", "fanta-uva-mini.jpg")
+    createRootPath("img", "fanta-uva-mini.jpg")
 );
-
 
 cardapio.addItem(
     "Guaraná 350 ml",
@@ -890,7 +887,7 @@ cardapio.addItem(
     "Guaraná Antarctica lata",
     4.5,
     12,
-    createRootPath("img", "produtos", "bebidas", "guarana-lata.jpg")
+    createRootPath("img", "guarana-lata.jpg")
 );
 
 cardapio.addItem(
@@ -899,9 +896,8 @@ cardapio.addItem(
     "Guaraná Antarctica Zero lata",
     4.5,
     10,
-    createRootPath("img", "produtos", "bebidas", "guarana-zero-350ml.jpg")
+    createRootPath("img", "guarana-zero-350ml.jpg")
 );
-
 
 cardapio.addItem(
     "Kapo Maracujá 200 ml",
@@ -909,7 +905,7 @@ cardapio.addItem(
     "Suco Kapo sabor maracujá",
     2.5,
     9,
-    createRootPath("img", "produtos", "bebidas", "kapo-maracuja.jpg")
+    createRootPath("img", "kapo-maracuja.jpg")
 );
 
 cardapio.addItem(
@@ -918,7 +914,7 @@ cardapio.addItem(
     "Suco Kapo sabor morango",
     2.5,
     11,
-    createRootPath("img", "produtos", "bebidas", "kapo-morango.jpg")
+    createRootPath("img", "kapo-morango.jpg")
 );
 
 cardapio.addItem(
@@ -927,9 +923,8 @@ cardapio.addItem(
     "Suco Kapo sabor uva",
     2.5,
     10,
-    createRootPath("img", "produtos", "bebidas", "kapo-uva.jpg")
+    createRootPath("img", "kapo-uva.jpg")
 );
-
 
 cardapio.addItem(
     "Pirakids 200 ml",
@@ -937,9 +932,8 @@ cardapio.addItem(
     "Bebida láctea Pirakids diversos sabores",
     3.0,
     8,
-    createRootPath("img", "produtos", "bebidas", "pirakids.jpg")
+    createRootPath("img", "pirakids.jpg")
 );
-
 
 cardapio.addItem(
     "Schweppes Citrus 350 ml",
@@ -947,7 +941,7 @@ cardapio.addItem(
     "Schweppes Citrus lata",
     5.0,
     7,
-    createRootPath("img", "produtos", "bebidas", "schweppers-lata.jpg")
+    createRootPath("img", "schweppers-lata.jpg")
 );
 
 cardapio.addItem(
@@ -956,9 +950,8 @@ cardapio.addItem(
     "Água tônica zero açúcar",
     5.0,
     6,
-    createRootPath("img", "produtos", "bebidas", "schweppers-tonico-zero.jpg")
+    createRootPath("img", "schweppers-tonico-zero.jpg")
 );
-
 
 cardapio.addItem(
     "Sprite 350 ml",
@@ -966,8 +959,9 @@ cardapio.addItem(
     "Sprite lata",
     4.5,
     14,
-    createRootPath("img", "produtos", "bebidas", "sprite 350ml.jpg")
+    createRootPath("img", "sprite 350ml.jpg")
 );
+
 
 cardapio.addItem(
     "Sprite 2 L",
@@ -975,7 +969,7 @@ cardapio.addItem(
     "Sprite garrafa grande",
     10.0,
     10,
-    createRootPath("img", "produtos", "bebidas", "sprite-2l.jpg")
+    createRootPath("img", "sprite-2l.jpg")
 );
 
 cardapio.addItem(
@@ -984,7 +978,7 @@ cardapio.addItem(
     "Sprite Fresh PET",
     5.5,
     9,
-    createRootPath("img", "produtos", "bebidas", "sprite-fresh.jpg")
+    createRootPath("img", "sprite-fresh.jpg")
 );
 
 cardapio.addItem(
@@ -993,7 +987,7 @@ cardapio.addItem(
     "Sprite PET individual",
     6.0,
     12,
-    createRootPath("img", "produtos", "bebidas", "sprite-garrafa.jpg")
+    createRootPath("img", "sprite-garrafa.jpg")
 );
 
 cardapio.addItem(
@@ -1002,7 +996,7 @@ cardapio.addItem(
     "Sprite Zero garrafa grande",
     10.0,
     11,
-    createRootPath("img", "produtos", "bebidas", "sprite-zero-2l.jpg")
+    createRootPath("img", "sprite-zero-2l.jpg")
 );
 
 

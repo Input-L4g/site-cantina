@@ -396,7 +396,9 @@ footer {
 
 #product-icon {
     width: 100%;
-    height: auto;
+    height: 10rem;
+    background-color: white;
+    object-fit: contain;
     border-radius: 15px;
 }
 
