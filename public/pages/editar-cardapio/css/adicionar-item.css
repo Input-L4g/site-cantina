@@ -91,7 +91,7 @@ form {
     border-radius: 1.5rem;
     flex-direction: column;
     width: 100%; /* Largura fixa para o formulário */
-    gap: 1rem; 
+    gap: 0.5rem; 
 }
 
 /* --- Títulos (Adicionar Produto) --- */
@@ -127,7 +127,7 @@ form {
     gap: 0.5rem;
     width: 100%;
     margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.2rem;
 }
 
 /* --- TextArea Descrição (.descricao-texto é a classe correta) --- */
@@ -157,6 +157,7 @@ form {
     /* Faz cada grupo ocupar metade do espaço */
     flex: 1; 
 }
+
 .preco, .quantidade {
     font-size: 0.7rem;
     margin-bottom: 0.2rem;
@@ -204,9 +205,10 @@ form {
 /* --- Bloco da Imagem (Upload) --- */
 .bloco-imagem {
     /* Largura fixa para o bloco de upload */
-    width: 250px; 
+    width: 25%; 
     text-align: center;
     padding: 2rem; /* Ajuste para centralizar o título verticalmente */
+    padding-top: 1.2rem;
     background-color: #D8CBCB;
     border-radius: 1.3rem;
 
@@ -214,9 +216,9 @@ form {
 }
 
 .titulo-imagem {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 500;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 
 .area-drop {
@@ -234,5 +236,18 @@ form {
 }
 
 .area-drop:hover {
-    background-color: #ddd;
+    background-color: rgb(78, 78, 78);
+}
+
+.area-drop label {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.warning {
+    color: #B40808;
+    font-size: 0.8rem;
 }

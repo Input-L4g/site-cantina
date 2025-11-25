@@ -5,7 +5,9 @@ import {
     formatPrice,
     formatStock,
     setElementValueTemporarily,
-    removeAccentuation
+    removeAccentuation,
+    createFunctionResponse,
+    createRootPath
 } from "./utils.js";
 
 import {
@@ -97,7 +99,8 @@ class Cardapio {
     }
 
     renderCardapio(clearOldCardapio = true) {
-        this.cardapioSection.innerHTML = "";
+        if (clearOldCardapio)
+            this.cardapioSection.innerHTML = "";
         const modalCloseBtn = modal.querySelector("#btn-add-product");
         const modalHead = document.querySelector(".ver-mais-head");
         for (const key in this.cardapio) { // Itera em cada categoria
@@ -209,8 +212,7 @@ class Cardapio {
         const catKey = category.toLowerCase();
         const item = this.#createItem(name, description, Math.max(price, 0), icon, Math.max(stock, 0));
         if (this.#hasItem(item.id)) {
-            console.log("O produto já existe!!");
-            return false;
+            return createFunctionResponse(-14);
         }
         this.#itemsIds[item.id] = item;
         this.#itemsIds[item.id].category = catKey
@@ -224,7 +226,7 @@ class Cardapio {
         } else {
             this.#addNewRow(catKey, item);
         }
-        return true;
+        return createFunctionResponse(0);
     }
 
     getItem(itemId) {
@@ -311,7 +313,7 @@ class Cardapio {
 }
 
 // export default Cardapio;
-const cardapio = new Cardapio();
+export const cardapio = new Cardapio();
 
 // Salgados
 

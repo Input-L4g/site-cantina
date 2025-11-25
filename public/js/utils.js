@@ -14,7 +14,6 @@ import {
 const overlayMenu = document.querySelector("#overlay-menu");
 const body = document.querySelector("body");
 
-
 /**
  * Valida os campos de nome, email e senha.
  * @param {{ name:string, email:string, phoneNumber:string, password:string, confirmPassword:string }
@@ -140,7 +139,7 @@ export function setLocalStorage(key, value) {
  * @returns { any } Objeto armazenado.
  */
 export function getLocalStorage(key) {
-    const itemGetted = localStorage.getItem(key); 
+    const itemGetted = localStorage.getItem(key);
     return itemGetted !== null? JSON.parse(itemGetted) : itemGetted;
 }
 

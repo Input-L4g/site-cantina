@@ -36,5 +36,6 @@ export const functionResponseCodeMap = {
     "-10": "A senha de ter pelo menos uma número.",
     "-11": "A senha deve ter ao menos um caractere especial.",
     "-12": "Coloque um email válido.",
-    "-13": "As informações de usuário não se alteraram"
+    "-13": "As informações de usuário não se alteraram",
+    "-14": "O produto já existe."
 };

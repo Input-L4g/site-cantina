@@ -57,40 +57,61 @@ export function showUsers() {
  * @param {any} t2 Segundo valor.
  * @returns {string} Valores embaralhados
  */
-function encodeEntry(t1, t2) {
-    /** @type {string} */
-    t1 = String(t1);
-    /** @type {string} */
-    t2 = String(t2);
+export function encodeEntry(...entries) {
+    // Normaliza todos para string minúscula
+    entries = entries.map(e => String(e).toLowerCase());
 
-    const id = [];
-    /** @type {string} */
-    let b_text;
-    /** @type {string} */
-    let s_text;
-
-    if (t1.length >= t2.length) {
-        b_text = t1;
-        s_text = t2;
-    } else {
-        b_text = t2;
-        s_text = t1;
+    // Caso base: apenas 1 item
+    if (entries.length === 1) {
+        return entries[0];
     }
 
-    let s_index = 0;
-    while (s_index < s_text.length) {
-        id.push(b_text.charAt(s_index));
-        id.push(s_text.charAt(s_index));
-        s_index++;
+    // Caso base: exatamente 2 itens
+    if (entries.length === 2) {
+        const [t1_raw, t2_raw] = entries;
+
+        /** @type {string} */
+        let t1 = t1_raw;
+        /** @type {string} */
+        let t2 = t2_raw;
+
+        const id = [];
+        let b_text;
+        let s_text;
+
+        if (t1.length >= t2.length) {
+            b_text = t1;
+            s_text = t2;
+        } else {
+            b_text = t2;
+            s_text = t1;
+        }
+
+        let s_index = 0;
+        while (s_index < s_text.length) {
+            id.push(b_text.charAt(s_index));
+            id.push(s_text.charAt(s_index));
+            s_index++;
+        }
+
+        const remainingText = b_text.slice(s_index);
+        const center = Math.trunc(remainingText.length / 2);
+
+        const p1 = remainingText.slice(0, center);
+        const p2 = remainingText.slice(center);
+
+        return p1 + id.join("") + p2;
     }
 
-    const remainingText = b_text.slice(s_index);
-    const center = Math.trunc(remainingText.length / 2);
+    // Caso geral: mais de 2 itens
+    const first = entries[0];
+    const second = entries[1];
 
-    const p1 = remainingText.slice(0, center);
-    const p2 = remainingText.slice(center);
+    // Codifica os dois primeiros
+    const encoded = encodeEntry(first, second);
 
-    return p1 + id.join("") + p2;
+    // Chama recursivamente substituindo as duas primeiras pelo resultado
+    return encodeEntry(encoded, ...entries.slice(2));
 }
 
 /**
