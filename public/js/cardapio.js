@@ -5,7 +5,8 @@ import {
     formatPrice,
     formatStock,
     setElementValueTemporarily,
-    removeAccentuation
+    removeAccentuation,
+    createRootPath
 } from "./utils.js";
 
 import {
@@ -323,7 +324,7 @@ cardapio.addItem(
     "envolve um recheio cremoso e bem equilibrado, " +
     "criando uma combinação clássica e muito saborosa.",
     5.50,
-    1
+    createRootPath("img", "produtos", "coxinha.jpg")
 );
 cardapio.addItem(
     "Kibe",
@@ -381,7 +382,8 @@ cardapio.addItem(
     "casquinha crocante que contrasta com o interior " +
     "elástico e cremoso. Um clássico irresistível para quem gosta de queijo.",
     4.00,
-    4
+    createRootPath("img", "produtos", "pao-de-queijo.jpg"),
+    
 );
 // DOCES
 cardapio.addItem(
@@ -418,7 +420,7 @@ cardapio.addItem(
     "coberto por uma calda de caramelo suave e brilhante. " +
     "A textura lisa e delicada proporciona um sabor marcante e equilibrado.",
     5.00,
-    5
+    createRootPath("img/")
 );
 
 cardapio.renderCardapio();

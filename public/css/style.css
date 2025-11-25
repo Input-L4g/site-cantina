@@ -710,223 +710,212 @@ footer {
     padding: 0 25px;
     border-radius: 20px;
 }
+
+/* --- Estilos para o Speed Dial (Floating Action Button) --- */
+
 .speed-dial {
+    /* Posicionamento do container principal (canto inferior direito) */
     position: fixed;
-    bottom: 20px;
+    bottom: 1rem;
     right: 20px;
+    z-index: 1000; /* Garante que fique acima de outros elementos */
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
 }
 
 .fab {
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    width: 3.5rem;
-
-    height: 3.5rem;
-
+    /* Estilo do botão principal */
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
-
+    background-color: #b00000; /* Cor principal, pode ser alterada */
     border: none;
-
-    background: #940000;
-
-    color: white;
-
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-
-    transition: background 0.2s;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
 }
 
 .fab img {
+    width: 24px;
+    height: 24px;
+    filter: invert(1); /* Deixa o ícone branco para contraste */
+}
 
-    transform: translateX(0%);
+.fab-options {
+    /* Container das opções */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom: 10px;
+    margin-right: 10px; /* Espaço entre as opções e o botão principal */
+    
+    /* Inicialmente invisível e fora de posição */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
 
-    height: 50px;
+.fab-options.visible {
+    /* Estado visível */
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
 
-    width: 50px;
+.fab-option {
+    /* Estilo dos botões de opção */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f8f9fa; /* Fundo claro para opções */
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    margin-top: 8px; /* Espaçamento entre as opções */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s;
+}
 
+.fab-option:hover {
+    background-color: #e9ecef;
 }
 
 .fab-option img {
-
-   
-
-    transform: translateX(0%);
-
-    height: 1.1rem;
-
-    width: auto;
-
+    width: 18px;
+    height: 18px;
 }
 
+/* --- Estilos para o Modal (Overlay) --- */
 
-
-.fab:hover {
-
-    background: #940000;
-
-}
-
-
-
-/* Container das opções */
-
-.fab-options {
-
-    display: flex;
-
-    flex-direction: column;
-
-    position: absolute;
-
-    bottom: 60px; /* abaixo do botão */
-
-    right: 0;
-
-    opacity: 0;
-
-    pointer-events: none;
-
-
-
-    transform: translateY(15px);
-
-    transition: 0.25s ease;
-
-}
-
-
-
-/* Quando aberto */
-
-.fab-options.open {
-
-    opacity: 1;
-
-    pointer-events: auto;
-
-    transform: translateY(0);
-
-}
-
-
-
-/* Botões das opções */
-
-.fab-option {
-
-    margin-right: 0.5rem;
-
-    display: flex;
-
+.overlay-modal {
+    /* Fundo escurecido que cobre a tela */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* Inicialmente oculto */
     justify-content: center;
-
-    height: auto;
-
-    width: auto;
-
-    font-size: 2rem;
-
-    margin-top: 5px;
-
-    padding: 10px 10px;
-
-    border: none;
-
-    border-radius: 50%;
-
-    background: #940000;
-
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-
-    cursor: pointer;
-
-    white-space: nowrap;
-
-    transition: background 0.2s;
-
+    align-items: center;
+    z-index: 1001; /* Garante que fique acima do speed dial */
 }
 
-.fab-option.add {
-
-    padding: 0;
-
+.overlay-modal.ativo {
+    display: flex; /* Exibe quando a classe 'ativo' é adicionada */
 }
 
-
-
-.fab-option:hover {
-
-    background: #e0e0e0;
-
-}
-/* Estilo para o contêiner do modal (Fundo escurecido) */
-.overlay-checkbox {
-  /* Oculta o modal por padrão */
-  display: none;
-  /* Fica fixo, cobrindo toda a janela de visualização */
-  position: fixed;
-  z-index: 1; /* Deve ficar acima de outros elementos */
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto; /* Habilita o scroll se o conteúdo for muito longo */
-  background-color: rgb(0,0,0); /* Cor preta */
-  background-color: rgba(0,0,0,0.4); /* Preto com transparência */
-}
-
-/* Estilo para a caixa do conteúdo do modal */
 .modal-conteudo {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% do topo e centralizado horizontalmente */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Pode ser ajustado */
-    max-width: 500px; /* Limite de largura para desktop */
+    /* Container do conteúdo principal do modal */
+    background-color: #fff;
+    padding: 30px;
     border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    max-width: 90%;
+    min-width: 300px;
+    max-height: 90vh;
+    overflow-y: auto; /* Permite rolagem se o conteúdo for grande */
+    transform: scale(0.8);
+    opacity: 0;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
 }
 
+.overlay-modal.ativo .modal-conteudo {
+    /* Efeito de abertura ao ficar ativo */
+    transform: scale(1);
+    opacity: 1;
+}
 
-/* Estilo para o contêiner do modal (Fundo escurecido) */
-.overlay-checkbox-edit {
-  /* Oculta o modal por padrão */
-  display: none;
-  /* Fica fixo, cobrindo toda a janela de visualização */
-  position: fixed;
-  z-index: 1; /* Deve ficar acima de outros elementos */
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto; /* Habilita o scroll se o conteúdo for muito longo */
-  background-color: rgb(0,0,0); /* Cor preta */
-  background-color: rgba(0,0,0,0.4); /* Preto com transparência */
-}
-.modal-conteudo-edit {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% do topo e centralizado horizontalmente */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Pode ser ajustado */
-    max-width: 500px; /* Limite de largura para desktop */
-    border-radius: 8px;
-}
-.fechar, .fechar-edit {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
+.fechar {
+    /* Botão de fechar (x) */
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
     font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
 }
 
 .fechar:hover,
 .fechar:focus {
-    color: black;
+    color: #333;
     text-decoration: none;
+}
+
+/* --- Estilos específicos para o Modal de Deletar --- */
+
+.delete-modal .checkbox-container {
+    padding-top: 15px;
+}
+
+.checkbox-fieldset {
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.checkbox-fieldset legend {
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+/* --- Estilos específicos para o Modal de Edição --- */
+
+.edit-modal form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.edit-modal input[type="text"],
+.edit-modal input[type="number"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box; /* Inclui padding e border na largura */
+}
+
+/* --- Estilos para Botões de Ação Comuns no Modal --- */
+
+.btn-modal-acao {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+    margin-top: 15px;
+}
+
+.btn-confirmar-delete {
+    background-color: #dc3545; /* Vermelho para deletar */
+    color: white;
+}
+
+.btn-confirmar-delete:hover {
+    background-color: #c82333;
+}
+
+.btn-confirmar-edit {
+    background-color: #28a745; /* Verde para salvar */
+    color: white;
+}
+
+.btn-confirmar-edit:hover {
+    background-color: #218838;
 }

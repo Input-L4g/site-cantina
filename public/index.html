@@ -21,19 +21,50 @@
                 <button class="fab-option" id="btn-lixeira"><img src="./img/lixeira.webp"></button>
             </div>
         </div>
-        <div class="overlay-checkbox" id="overlayCheckbox">
-            <div class="modal-conteudo">
-                <span class="fechar">&times;</span>
-                <h2>Modal do REMOVE</h2>
-                <p>Este é o conteúdo principal da pagina de remoção.</p>
-            </div>
-            </div>
-        <div class="overlay-checkbox-edit" id="overlayCheckboxEdit">
-            <div class="modal-conteudo-edit">
-                <span class="fechar-edit">&times;</span>
-                <h2>Modal do EDIT</h2>
-                <p>Este é o conteúdo principal da pagina de edit.</p>
-            </div>
+            <div class="overlay-modal" id="overlayCheckboxDelete">
+        <div class="modal-conteudo delete-modal">
+        <span class="fechar fechar-delete">×</span>
+        <div class="checkbox-container">
+            <fieldset class="checkbox-fieldset" id="fieldsetCheckbox">
+                <legend>Selecione os itens para deletar:</legend>
+
+                <input type="checkbox" id="cb-coxinha-del" name="coxinha-frango-del" value="coxinha-frango">
+                <label for="cb-coxinha-del">Coxinha de Frango</label><br>
+
+                <input type="checkbox" id="cb-risoles-del" name="risoles-de-presunto-e-queijo-del" value="risoles-de-presunto-e-queijo">
+                <label for="cb-risoles-del">Risoles de Presunto e Queijo</label><br>
+
+                <input type="checkbox" id="cb-empada-del" name="empada-frango-del" value="empada-frango">
+                <label for="cb-empada-del">Empada de Frango</label><br>
+
+                <input type="checkbox" id="cb-pastel-del" name="pastel-carne-del" value="pastel-carne">
+                <label for="cb-pastel-del">Pastel de Carne</label><br>
+
+                <input type="checkbox" id="cb-esfiha-del" name="esfiha-queijo-del" value="esfiha-queijo">
+                <label for="cb-esfiha-del">Esfiha de Queijo</label><br>
+            </fieldset>
+            <button class="btn-modal-acao btn-confirmar-delete">Confirmar Exclusão</button>
+        </div>
+        </div>
+        </div>
+
+        <div class="overlay-modal" id="overlayCheckboxEdit">
+        <div class="modal-conteudo edit-modal">
+        <span class="fechar fechar-edit">×</span>
+        <h2>Modal de Edição de Itens</h2>
+        <p>Aqui você pode editar os detalhes de um item selecionado.</p>
+        <form class="form-edit">
+            <br>
+            <label for="edit-nome">Nome:</label>
+            <input type="text" id="edit-nome" value="Nome do Item"><br><br>
+            <label for="edit-preco">Preço:</label>
+            <input type="number" id="edit-preco" value="10.50"><br><br>
+            <label for="edit-descricao">Descrição:</label>
+            <input type="text" id="edit-descricao" placeholder="descrição breve"><br><br>
+            <button type="submit" class="btn-modal-acao btn-confirmar-edit">Salvar Edição</button>
+
+        </form>
+        </div>
         </div>
        
         <header>
@@ -166,101 +197,7 @@
         });
     </script>
         <script type="module" src="./js/index.js"></script>
-       
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // --- MODAL DE REMOÇÃO (Lixeira) ---
-    var modalRemove = document.getElementById("overlayCheckbox");
-    var btnRemove = document.getElementById("btn-lixeira");
-    var spanRemove = document.getElementsByClassName("fechar")[0];
-    
-    if (btnRemove && modalRemove && spanRemove) {
-        btnRemove.onclick = function() {
-            modalRemove.style.display = "block";
-        }
-        spanRemove.onclick = function() {
-            modalRemove.style.display = "none";
-        }
-        window.onclick = function(event) {
-            if (event.target == modalRemove) {
-                modalRemove.style.display = "none";
-            }
-        }
-    }
-
-    // --- MODAL DE EDIÇÃO ---
-    var modalEdit = document.getElementById("overlayCheckboxEdit"); // AGORA BUSCA O ID CORRETO
-    var btnEdit = document.getElementById("btn-edit");
-    var spanEdit = document.getElementsByClassName("fechar-edit")[0];
-
-    if (btnEdit && modalEdit && spanEdit) {
-        btnEdit.onclick = function() {
-            modalEdit.style.display = "block";
-        }
-        spanEdit.onclick = function() {
-            modalEdit.style.display = "none";
-        }
-    }
-});
-</script>
-
-        <script type="module">
-            import {toPage} from "./js/utils.js";
-            const btnCadastro = document.querySelector("#btn-cadastro");
-
-            btnCadastro.addEventListener("click", () => {
-                toPage(".", "pages", "cadastro", "cadastro.html");
-            });
-        </script>
-
-        <script type="module">
-            import {toPage} from "./js/utils.js";
-            const btnLogin = document.querySelector("#btn-login");
-
-            btnLogin.addEventListener("click", () => {
-                toPage(".", "pages", "login", "login.html");
-            });
-        </script>
-
-        <script type="module">
-            import {toPage} from "./js/utils.js";
-            const btnCardapio = document.querySelector("#btn-cardapio");
-
-            btnCardapio.addEventListener("click", () => {
-                toPage("index.html");
-            });
-        </script>
-
-        <script type="module">
-            import {toPage} from "./js/utils.js";
-            const btnMeusPedidos = document.querySelector("#btn-meus-pedidos");
-
-            btnMeusPedidos.addEventListener("click", () => {
-                toPage(".", "pages", "meus-pedidos", "meus-pedidos.html");
-            });
-        </script>
-
-        <script type="module">
-            import {toPage} from "./js/utils.js";
-            const  btnPerfil = document.querySelector("#btn-perfil");
-
-            btnPerfil.addEventListener("click", () => {
-                toPage(".", "pages", "perfil", "perfil.html");
-            });
-        </script>
-
-        <script type="module">
-            import {toPage} from "./js/utils.js";
-            const  btnMais= document.querySelector("#btn-mais");
-
-            btnMais.addEventListener("click", () => {
-                toPage(".", "pages", "editar-cardapio", "adicionar-item.html");
-            });
-        </script>
-     
-        
+        <script type="module" src="./js/cardapio.js"></script>      
     </body>
 
 </html>
